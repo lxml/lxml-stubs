@@ -6,6 +6,8 @@ import typing
 from typing import Any, Dict, List, Mapping, MutableMapping, Tuple, Union, Optional, Sequence
 from typing import Iterable, Iterator, SupportsBytes
 
+from typing_extensions import Protocol
+
 
 # We do *not* want `typing.AnyStr` because it is a `TypeVar`, which is an
 # unnecessary constraint. It seems reasonable to constrain each
@@ -62,7 +64,34 @@ class _XSLTResultTree(SupportsBytes):
 
 class _XSLTQuotedStringParam: ...
 
-class XMLParser: ...
+
+# https://lxml.de/parsing.html#the-target-parser-interface
+class ParserTarget(Protocol):
+    def comment(self, text: _AnyStr) -> None: ...
+    def close(self) -> Any: ...
+    def data(self, data: _AnyStr) -> None: ...
+    def end(self, tag: _AnyStr) -> None: ...
+    def start(self, tag: _AnyStr, attrib: _DictAnyStr) -> None: ...
+
+class XMLParser:
+    def __init__(self,
+                 encoding: Optional[_AnyStr] = ...,
+                 attribute_defaults: bool = ...,
+                 dtd_validation: bool = ...,
+                 load_dtd: bool = ...,
+                 no_network: bool = ...,
+                 ns_clean: bool = ...,
+                 recover: bool = ...,
+                 schema: Optional[XMLSchema] = ...,
+                 huge_tree: bool = ...,
+                 remove_blank_text: bool = ...,
+                 resolve_entities: bool = ...,
+                 remove_comments: bool = ...,
+                 remove_pis: bool = ...,
+                 strip_cdata: bool = ...,
+                 collect_ids: bool = ...,
+                 target: Optional[ParserTarget] = ...,
+                 compact: bool = ...) -> None: ...
 
 class XMLSchema:
     def __init__(self,
