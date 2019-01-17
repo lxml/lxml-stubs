@@ -46,6 +46,7 @@ class _Element(Iterable['_Element']):
 class ElementBase(_Element): ...
 
 class _ElementTree:
+    def getroot(self) -> _Element: ...
     def write(self,
               file: Union[_AnyStr, typing.IO],
               encoding: _AnyStr = ...,
@@ -58,7 +59,17 @@ class _ElementTree:
               exclusive: bool = ...,
               with_comments: bool = ...,
               inclusive_ns_prefixes: _ListAnyStr = ...) -> None: ...
-    def xpath(self, _path: _AnyStr, namespaces: Optional[_DictAnyStr] = ..., extensions: Any = ..., smart_strings: bool = ..., **_variables: Any) -> Any: ...
+    def xpath(self,
+              _path: _AnyStr,
+              namespaces: Optional[_DictAnyStr] = ...,
+              extensions: Any = ...,
+              smart_strings: bool = ...,
+              **_variables: Any) -> Any: ...
+    def xslt(self,
+             _xslt: XSLT,
+             extensions: Optional[_Dict_Tuple2AnyStr_Any] = ...,
+             access_control: Optional[XSLTAccessControl] = ...,
+             **_variables) -> _ElementTree: ...
 
 class _XSLTResultTree(SupportsBytes):
     def __bytes__(self) -> bytes: ...
