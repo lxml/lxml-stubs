@@ -71,6 +71,14 @@ class _ElementTree:
              access_control: Optional[XSLTAccessControl] = ...,
              **_variables) -> _ElementTree: ...
 
+class QName:
+    localname = ... # type: _AnyStr
+    namespace = ... # type: _AnyStr
+    text = ... # type: _AnyStr
+    def __init__(self,
+                 text_or_uri_element: Union[_AnyStr, _Element],
+                 tag: Optional[_AnyStr] = ...) -> None: ...
+
 class _XSLTResultTree(SupportsBytes):
     def __bytes__(self) -> bytes: ...
 
