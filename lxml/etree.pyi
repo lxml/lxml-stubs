@@ -17,6 +17,7 @@ _AnyStr = Union[str, bytes]
 _ListAnyStr = Union[List[str], List[bytes]]
 _DictAnyStr = Union[Dict[str, str], Dict[bytes, bytes]]
 _Dict_Tuple2AnyStr_Any = Union[Dict[Tuple[str, str], Any], Tuple[bytes, bytes], Any]
+_NSMap = Union[Dict[Union[bytes, None], bytes], Dict[Union[str, None], str]]
 _xpath = Union['XPath', _AnyStr]
 _OptionalNamespace = Optional[Mapping[str, Any]]
 
@@ -38,6 +39,7 @@ class _Element(Iterable['_Element']):
     attrib = ...  # type: MutableMapping[str, str]
     text = ...  # type: _AnyStr
     tag = ...  # type: str
+    nsmap = ...  # type: _NSMap
     def append(self, element: '_Element') -> '_Element': ...
     def __iter__(self) -> ElementChildIterator: ...
     def items(self) -> Sequence[Tuple[_AnyStr, _AnyStr]]: ...
@@ -136,11 +138,11 @@ class XSLT:
 
 def Element(_tag: _AnyStr,
             attrib: _DictAnyStr = ...,
-            nsmap: _DictAnyStr = ...,
+            nsmap: _NSMap = ...,
             **extra: _AnyStr) -> _Element: ...
 def SubElement(_parent: _Element, _tag: _AnyStr,
                attrib: _DictAnyStr = ...,
-               nsmap: _DictAnyStr = ...,
+               nsmap: _AnyStr = ...,
                **extra: _AnyStr) -> _Element: ...
 def ElementTree(element: _Element = ...,
                 file: Union[_AnyStr, typing.IO] = ...,
