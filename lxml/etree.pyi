@@ -55,6 +55,7 @@ class _Element(Iterable['_Element'], Sized):
 class ElementBase(_Element): ...
 
 class _ElementTree:
+    parser = ... # type: XMLParser
     def getroot(self) -> _Element: ...
     def write(self,
               file: Union[_AnyStr, typing.IO],
@@ -68,6 +69,7 @@ class _ElementTree:
               exclusive: bool = ...,
               with_comments: bool = ...,
               inclusive_ns_prefixes: _ListAnyStr = ...) -> None: ...
+    def _setroot(self, root: _Element): ...
     def xpath(self,
               _path: _AnyStr,
               namespaces: Optional[_DictAnyStr] = ...,
