@@ -182,6 +182,9 @@ class XSLT:
     @staticmethod
     def strparam(s: _AnyStr) -> _XSLTQuotedStringParam: ...
 
+
+def Comment(text: Optional[_AnyStr] = ...) -> _Element: ...
+
 def Element(_tag: _AnyStr,
             attrib: _DictAnyStr = ...,
             nsmap: _NSMap = ...,
@@ -194,6 +197,9 @@ def ElementTree(element: _Element = ...,
                 file: Union[_AnyStr, typing.IO] = ...,
                 parser: XMLParser = ...) -> _ElementTree: ...
 def ProcessingInstruction(target: _AnyStr, text: _AnyStr = ...) -> _Element: ...
+
+PI = ProcessingInstruction
+
 def parse(source: Union[_AnyStr, typing.IO],
           parser: XMLParser = ...,
           base_url: _AnyStr = ...) -> _ElementTree: ...
