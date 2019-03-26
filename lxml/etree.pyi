@@ -2,9 +2,21 @@
 # This is *far* from complete, and the stubgen-generated ones crash mypy.
 # Any use of `Any` below means I couldn't figure out the type.
 
-import typing
-from typing import Any, Dict, List, Mapping, Tuple, Union, Optional, Sequence, Sized
-from typing import Iterable, Iterator, SupportsBytes
+from typing import (
+    Any,
+    Dict,
+    Iterable,
+    Iterator,
+    List,
+    Mapping,
+    Tuple,
+    Union,
+    Optional,
+    Sequence,
+    Sized,
+    SupportsBytes,
+)
+from typing import IO as IOType
 
 from typing_extensions import Protocol
 
@@ -76,7 +88,7 @@ class _ElementTree:
     def getpath(self, element: _Element) -> str: ...
     def getroot(self) -> _Element: ...
     def write(self,
-              file: Union[_AnyStr, typing.IO],
+              file: Union[_AnyStr, IOType],
               encoding: _AnyStr = ...,
               method: _AnyStr = ...,
               pretty_print: bool = ...,
@@ -88,7 +100,7 @@ class _ElementTree:
               with_comments: bool = ...,
               inclusive_ns_prefixes: _ListAnyStr = ...) -> None: ...
     def write_c14n(self,
-                   file: Union[_AnyStr, typing.IO],
+                   file: Union[_AnyStr, IOType],
                    with_comments: bool = ...,
                    compression: int = ...,
                    inclusive_ns_prefixes: Iterable[_AnyStr] = ...): ...
@@ -178,7 +190,7 @@ class XMLParser:
 class XMLSchema:
     def __init__(self,
                  etree: Union[_Element, _ElementTree] = ...,
-                 file: Union[_AnyStr, typing.IO] = ...) -> None: ...
+                 file: Union[_AnyStr, IOType] = ...) -> None: ...
     def assertValid(self, etree: Union[_Element, _ElementTree]) -> None: ...
 
 class XSLTAccessControl: ...
@@ -208,7 +220,7 @@ def SubElement(_parent: _Element, _tag: _AnyStr,
                nsmap: _AnyStr = ...,
                **extra: _AnyStr) -> _Element: ...
 def ElementTree(element: _Element = ...,
-                file: Union[_AnyStr, typing.IO] = ...,
+                file: Union[_AnyStr, IOType] = ...,
                 parser: XMLParser = ...) -> _ElementTree: ...
 def ProcessingInstruction(target: _AnyStr, text: _AnyStr = ...) -> _Element: ...
 
@@ -218,7 +230,7 @@ def cleanup_namespaces(tree_or_element: Union[_Element, _ElementTree],
                        top_nsmap: Optional[_NSMap] = ...,
                        keep_ns_prefixes: Optional[Iterable[_AnyStr]] = ...): ...
 
-def parse(source: Union[_AnyStr, typing.IO],
+def parse(source: Union[_AnyStr, IOType],
           parser: XMLParser = ...,
           base_url: _AnyStr = ...) -> _ElementTree: ...
 def fromstring(text: _AnyStr,
@@ -254,7 +266,7 @@ class _Validator: ...
 
 class DTD(_Validator):
     def __init__(self,
-                 file: Union[_AnyStr, typing.IO] = ...,
+                 file: Union[_AnyStr, IOType] = ...,
                  *,
                  external_id: Any = ...) -> None: ...
 
