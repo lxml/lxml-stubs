@@ -9,6 +9,9 @@ from typing import Iterable, Iterator, SupportsBytes
 from typing_extensions import Protocol
 
 
+# dummy for missing stubs
+def __getattr__(name) -> Any: ...
+
 # We do *not* want `typing.AnyStr` because it is a `TypeVar`, which is an
 # unnecessary constraint. It seems reasonable to constrain each
 # List/Dict argument to use one type consistently, though, and it is

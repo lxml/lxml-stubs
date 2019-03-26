@@ -1,6 +1,10 @@
-from typing import Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Union
 
 from lxml import etree
+
+
+# dummy for missing stubs
+def __getattr__(name) -> Any: ...
 
 
 _DictAnyStr = Union[Dict[str, str], Dict[bytes, bytes]]
