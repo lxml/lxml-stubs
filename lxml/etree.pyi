@@ -212,12 +212,12 @@ class XSLT:
 def Comment(text: Optional[_AnyStr] = ...) -> _Element: ...
 
 def Element(_tag: _AnyStr,
-            attrib: _DictAnyStr = ...,
-            nsmap: _NSMap = ...,
+            attrib: Optional[_DictAnyStr] = ...,
+            nsmap: Optional[_NSMap] = ...,
             **extra: _AnyStr) -> _Element: ...
 def SubElement(_parent: _Element, _tag: _AnyStr,
-               attrib: _DictAnyStr = ...,
-               nsmap: _AnyStr = ...,
+               attrib: Optional[_DictAnyStr] = ...,
+               nsmap: Optional[_NSMap] = ...,
                **extra: _AnyStr) -> _Element: ...
 def ElementTree(element: _Element = ...,
                 file: Union[_AnyStr, IOType] = ...,
