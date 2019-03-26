@@ -84,6 +84,11 @@ class _ElementTree:
               exclusive: bool = ...,
               with_comments: bool = ...,
               inclusive_ns_prefixes: _ListAnyStr = ...) -> None: ...
+    def write_c14n(self,
+                   file: Union[_AnyStr, typing.IO],
+                   with_comments: bool = ...,
+                   compression: int = ...,
+                   inclusive_ns_prefixes: Iterable[_AnyStr] = ...): ...
     def _setroot(self, root: _Element): ...
     def xpath(self,
               _path: _AnyStr,
