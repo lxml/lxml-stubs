@@ -211,6 +211,10 @@ def ProcessingInstruction(target: _AnyStr, text: _AnyStr = ...) -> _Element: ...
 
 PI = ProcessingInstruction
 
+def cleanup_namespaces(tree_or_element: Union[_Element, _ElementTree],
+                       top_nsmap: Optional[_NSMap] = ...,
+                       keep_ns_prefixes: Optional[Iterable[_AnyStr]] = ...): ...
+
 def parse(source: Union[_AnyStr, typing.IO],
           parser: XMLParser = ...,
           base_url: _AnyStr = ...) -> _ElementTree: ...
