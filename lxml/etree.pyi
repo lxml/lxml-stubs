@@ -150,7 +150,7 @@ class QName:
     namespace = ... # type: _AnyStr
     text = ... # type: _AnyStr
     def __init__(self,
-                 text_or_uri_element: Union[_AnyStr, _Element],
+                 text_or_uri_element: Union[None, _AnyStr, _Element],
                  tag: Optional[_AnyStr] = ...) -> None: ...
 
 class _XSLTResultTree(_ElementTree, SupportsBytes):
