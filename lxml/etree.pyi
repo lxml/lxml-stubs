@@ -22,7 +22,7 @@ from typing_extensions import Protocol
 
 
 # dummy for missing stubs
-def __getattr__(name) -> Any: ...
+def __getattr__(name: str) -> Any: ...
 
 # We do *not* want `typing.AnyStr` because it is a `TypeVar`, which is an
 # unnecessary constraint. It seems reasonable to constrain each
@@ -115,7 +115,7 @@ class _ElementTree:
              _xslt: XSLT,
              extensions: Optional[_Dict_Tuple2AnyStr_Any] = ...,
              access_control: Optional[XSLTAccessControl] = ...,
-             **_variables) -> _ElementTree: ...
+             **_variables: Any) -> _ElementTree: ...
 
 
 class __ContentOnlyEleement(_Element): ...
