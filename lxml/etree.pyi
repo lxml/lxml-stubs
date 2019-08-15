@@ -5,6 +5,7 @@
 from typing import (
     Any,
     Dict,
+    IO,
     Iterable,
     Iterator,
     List,
@@ -16,7 +17,6 @@ from typing import (
     Sized,
     SupportsBytes,
 )
-from typing import IO as IOType
 
 from typing_extensions import Protocol
 
@@ -88,7 +88,7 @@ class _ElementTree:
     def getpath(self, element: _Element) -> str: ...
     def getroot(self) -> _Element: ...
     def write(self,
-              file: Union[_AnyStr, IOType],
+              file: Union[_AnyStr, IO[Any]],
               encoding: _AnyStr = ...,
               method: _AnyStr = ...,
               pretty_print: bool = ...,
@@ -100,7 +100,7 @@ class _ElementTree:
               with_comments: bool = ...,
               inclusive_ns_prefixes: _ListAnyStr = ...) -> None: ...
     def write_c14n(self,
-                   file: Union[_AnyStr, IOType],
+                   file: Union[_AnyStr, IO[Any]],
                    with_comments: bool = ...,
                    compression: int = ...,
                    inclusive_ns_prefixes: Iterable[_AnyStr] = ...): ...
@@ -200,7 +200,7 @@ class XMLParser:
 class XMLSchema:
     def __init__(self,
                  etree: Union[_Element, _ElementTree] = ...,
-                 file: Union[_AnyStr, IOType] = ...) -> None: ...
+                 file: Union[_AnyStr, IO[Any]] = ...) -> None: ...
     def assertValid(self, etree: Union[_Element, _ElementTree]) -> None: ...
 
 class XSLTAccessControl: ...
@@ -230,7 +230,7 @@ def SubElement(_parent: _Element, _tag: _AnyStr,
                nsmap: Optional[_NSMap] = ...,
                **extra: _AnyStr) -> _Element: ...
 def ElementTree(element: _Element = ...,
-                file: Union[_AnyStr, IOType] = ...,
+                file: Union[_AnyStr, IO[Any]] = ...,
                 parser: XMLParser = ...) -> _ElementTree: ...
 def ProcessingInstruction(
         target: _AnyStr,
@@ -243,7 +243,7 @@ def cleanup_namespaces(tree_or_element: Union[_Element, _ElementTree],
                        top_nsmap: Optional[_NSMap] = ...,
                        keep_ns_prefixes: Optional[Iterable[_AnyStr]] = ...): ...
 
-def parse(source: Union[_AnyStr, IOType],
+def parse(source: Union[_AnyStr, IO[Any]],
           parser: XMLParser = ...,
           base_url: _AnyStr = ...) -> _ElementTree: ...
 def fromstring(text: _AnyStr,
@@ -279,7 +279,7 @@ class _Validator: ...
 
 class DTD(_Validator):
     def __init__(self,
-                 file: Union[_AnyStr, IOType] = ...,
+                 file: Union[_AnyStr, IO[Any]] = ...,
                  *,
                  external_id: Any = ...) -> None: ...
 
