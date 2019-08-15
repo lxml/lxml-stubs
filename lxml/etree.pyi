@@ -44,7 +44,7 @@ class ElementBase(_Element): ...
 
 class _ElementTree:
     def write(self,
-              file: Union[_AnyStr, typing.IO],
+              file: Union[_AnyStr, typing.IO[Any]],
               encoding: _AnyStr = ...,
               method: _AnyStr = ...,
               pretty_print: bool = ...,
@@ -67,7 +67,7 @@ class XMLParser: ...
 class XMLSchema:
     def __init__(self,
                  etree: Union[_Element, _ElementTree] = ...,
-                 file: Union[_AnyStr, typing.IO] = ...) -> None: ...
+                 file: Union[_AnyStr, typing.IO[Any]] = ...) -> None: ...
     def assertValid(self, etree: Union[_Element, _ElementTree]) -> None: ...
 
 class XSLTAccessControl: ...
@@ -94,10 +94,10 @@ def SubElement(_parent: _Element, _tag: _AnyStr,
                nsmap: _DictAnyStr = ...,
                **extra: _AnyStr) -> _Element: ...
 def ElementTree(element: _Element = ...,
-                file: Union[_AnyStr, typing.IO] = ...,
+                file: Union[_AnyStr, typing.IO[Any]] = ...,
                 parser: XMLParser = ...) -> _ElementTree: ...
 def ProcessingInstruction(target: _AnyStr, text: _AnyStr = ...) -> _Element: ...
-def parse(source: Union[_AnyStr, typing.IO],
+def parse(source: Union[_AnyStr, typing.IO[Any]],
           parser: XMLParser = ...,
           base_url: _AnyStr = ...) -> _ElementTree: ...
 def fromstring(text: _AnyStr,
@@ -133,7 +133,7 @@ class _Validator: ...
 
 class DTD(_Validator):
     def __init__(self,
-                 file: Union[_AnyStr, typing.IO] = ...,
+                 file: Union[_AnyStr, typing.IO[Any]] = ...,
                  *,
                  external_id: Any = ...) -> None: ...
 
