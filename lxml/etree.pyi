@@ -29,6 +29,9 @@ def __getattr__(name: str) -> Any: ...
 # List/Dict argument to use one type consistently, though, and it is
 # necessary in order to keep these brief.
 _AnyStr = Union[str, bytes]
+_AnySmartStr = Union['_ElementUnicodeResult', '_PyElementUnicodeResult', '_ElementStringResult']
+# XPath object - http://lxml.de/xpathxslt.html#xpath-return-values
+_XPathObject = Union[bool, float, _AnySmartStr, _AnyStr, List[Union['_Element', _AnySmartStr, _AnyStr, Tuple[Optional[_AnyStr], Optional[_AnyStr]]]]]
 _ListAnyStr = Union[List[str], List[bytes]]
 _DictAnyStr = Union[Dict[str, str], Dict[bytes, bytes]]
 _Dict_Tuple2AnyStr_Any = Union[Dict[Tuple[str, str], Any], Tuple[bytes, bytes], Any]
@@ -39,6 +42,27 @@ _OptionalNamespace = Optional[Mapping[str, Any]]
 class ElementChildIterator(Iterator['_Element']):
     def __iter__(self) -> 'ElementChildIterator': ...
     def __next__(self) -> '_Element': ...
+
+class _ElementUnicodeResult(str):
+    is_attribute: bool
+    is_tail: bool
+    is_text: bool
+    attrname: Optional[_AnyStr]
+    def getparent(self) -> Optional['_Element']: ...
+
+class _PyElementUnicodeResult(str):
+    is_attribute: bool
+    is_tail: bool
+    is_text: bool
+    attrname: Optional[_AnyStr]
+    def getparent(self) -> Optional['_Element']: ...
+
+class _ElementStringResult(bytes):
+    is_attribute: bool
+    is_tail: bool
+    is_text: bool
+    attrname: Optional[_AnyStr]
+    def getparent(self) -> Optional['_Element']: ...
 
 class _Element(Iterable['_Element'], Sized):
     def __delitem__(self, key: Union[int, slice]) -> None: ...
@@ -69,9 +93,12 @@ class _Element(Iterable['_Element'], Sized):
                     **_extra: Any
                     ) -> _Element: ...
     def remove(self, element: _Element) -> None: ...
-    def xpath(self, _path: _AnyStr, namespaces: Optional[_DictAnyStr] = ..., extensions: Any = ..., smart_strings: bool = ..., **_variables: Any) -> Any: ...
-    # indeed returns a Union[bool, float, _AnyStr, List[Union[ElementBase, _AnyStr, Tuple[]]]]: ...
-    # http://lxml.de/xpathxslt.html#xpath-return-values
+    def xpath(self,
+              _path: _AnyStr,
+              namespaces: Optional[_DictAnyStr] = ...,
+              extensions: Any = ...,
+              smart_strings: bool = ...,
+              **_variables: _XPathObject) -> _XPathObject: ...
     attrib = ...  # type: _Attrib
     text = ...  # type: Optional[_AnyStr]
     tag = ...  # type: Union[_AnyStr, QName]
@@ -110,7 +137,7 @@ class _ElementTree:
               namespaces: Optional[_DictAnyStr] = ...,
               extensions: Any = ...,
               smart_strings: bool = ...,
-              **_variables: Any) -> Any: ...
+              **_variables: _XPathObject) -> _XPathObject: ...
     def xslt(self,
              _xslt: XSLT,
              extensions: Optional[_Dict_Tuple2AnyStr_Any] = ...,
@@ -286,4 +313,11 @@ class DTD(_Validator):
     def assertValid(self, etree: _Element) -> None: ...
 
 class XPath:
-    def __init__(self, path: _AnyStr, namespaces: Optional[_AnyStr], extensions: Optional[_AnyStr], regexp: Optional[bool], smart_strings: Optional[bool]) -> None: ...
+    def __init__(self,
+                 path: _AnyStr,
+                 *,
+                 namespaces: Optional[_AnyStr] = ...,
+                 extensions: Optional[_AnyStr] = ...,
+                 regexp: bool = ...,
+                 smart_strings: bool = ...) -> None: ...
+    def __call__(self, _etree_or_element: Union[_Element, _ElementTree], **_variables: _XPathObject) -> _XPathObject: ...
