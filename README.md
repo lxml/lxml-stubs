@@ -14,9 +14,18 @@ Eventually, it should become a PEP 561-style stubs package.
 
 ## Usage
 
-To use these stubs, clone this repo and point your type checker to it. For example, to use them in
-[mypy](http://github.com/python/mypy), you can set the `$MYPYPATH` environment variable or set
-`mypy_path = /path/to/lxml-stubs` in your `mypy.ini`.
+To use these stubs with [mypy](https://github.com/python/mypy), you have to
+install the `lxml-stubs` package.
+
+If you want to use the stubs as-is, you can build and install the package
+directly from its repository:
+
+    $ pip install https://github.com/lxml/lxml-stubs.git
+
+If you want to make local modifications, you can clone this repository and
+tell `pip` to install a link to the cloned source tree:
+
+    $ pip install -e /path/to/lxml-stubs
 
 ## Contributing
 
