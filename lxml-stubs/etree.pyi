@@ -253,7 +253,7 @@ class CustomElementClassLookup(FallbackElementClassLookup):
 
 class _BaseParser:
     def __getattr__(self, name: str) -> Any: ...  # Incomplete
-    def copy(self) -> "_BaseParser": ...
+    def copy(self) -> _BaseParser: ...
     def makeelement(
         self,
         _tag: _AnyStr,
