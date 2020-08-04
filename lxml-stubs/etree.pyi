@@ -251,7 +251,29 @@ class CustomElementClassLookup(FallbackElementClassLookup):
         self, type: str, doc: str, namespace: str, name: str
     ) -> Optional[ElementBase]: ...
 
-class XMLParser:
+class _BaseParser:
+    def __getattr__(self, name: str) -> Any: ...  # Incomplete
+    def copy(self) -> "_BaseParser": ...
+    def makeelement(
+        self,
+        _tag: _AnyStr,
+        attrib: Optional[Union[_DictAnyStr, _Attrib]] = ...,
+        nsmap: Optional[_NSMap] = ...,
+        **_extra: Any
+    ) -> _Element: ...
+    def setElementClassLookup(
+        self, lookup: Optional[ElementClassLookup] = ...
+    ) -> None: ...
+    def set_element_class_lookup(
+        self, lookup: Optional[ElementClassLookup] = ...
+    ) -> None: ...
+
+class _FeedParser(_BaseParser):
+    def __getattr__(self, name: str) -> Any: ...  # Incomplete
+    def close(self) -> _Element: ...
+    def feed(self, data: _AnyStr) -> None: ...
+
+class XMLParser(_FeedParser):
     def __init__(
         self,
         encoding: Optional[_AnyStr] = ...,
