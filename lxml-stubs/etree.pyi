@@ -249,7 +249,7 @@ class FallbackElementClassLookup(ElementClassLookup):
 class CustomElementClassLookup(FallbackElementClassLookup):
     def lookup(
         self, type: str, doc: str, namespace: str, name: str
-    ) -> Optional[ElementBase]: ...
+    ) -> Optional[Type[ElementBase]]: ...
 
 class _BaseParser:
     def __getattr__(self, name: str) -> Any: ...  # Incomplete
