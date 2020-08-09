@@ -1,0 +1,7 @@
+[tool.pytest.ini_options]
+testpaths = [
+    "test-data",
+]
+
+[tool.coverage.paths]
+source = ["lxml-stubs", "*/.tox/*/site-packages"]
