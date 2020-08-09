@@ -13,7 +13,6 @@
         result = element.find("/my-path/")
         reveal_type(result)  # N: Revealed type is 'Union[lxml.etree._Element, None]'
 
-
 -   case: etree_element_get
     disable_cache: true
     main: |
@@ -21,3 +20,11 @@
         element = etree.Element("foo")
         result = element.get("my-attr")
         reveal_type(result)  # N: Revealed type is 'Union[builtins.str, None]'
+
+-   case: etree_xmlparser_makeelement
+    disable_cache: true
+    main: |
+        from lxml import etree
+        parser = etree.XMLParser()
+        element = parser.makeelement("foobar")
+        reveal_type(element)  # N: Revealed type is 'lxml.etree._Element'
