@@ -3,20 +3,20 @@
 # Any use of `Any` below means I couldn't figure out the type.
 
 from typing import (
+    IO,
     Any,
     Dict,
-    IO,
     Iterable,
     Iterator,
     List,
     Mapping,
-    Tuple,
-    Union,
     Optional,
     Sequence,
     Sized,
     SupportsBytes,
+    Tuple,
     TypeVar,
+    Union,
     overload,
 )
 
@@ -262,17 +262,18 @@ class XMLParser:
     ) -> None: ...
     resolvers = ...  # type: _ResolverRegistry
 
-
 class _ResolverRegistry:
     def add(self, resolver: Resolver) -> None: ...
     def remove(self, resolver: Resolver) -> None: ...
 
-
 class Resolver:
     def resolve(self, system_url: str, public_id: str): ...
-    def resolve_file(self, f: IO[Any], context: Any, *, base_url: Optional[_AnyStr], close: bool): ...
-    def resolve_string(self, string: _AnyStr, context: Any, *, base_url: Optional[_AnyStr]): ...
-
+    def resolve_file(
+        self, f: IO[Any], context: Any, *, base_url: Optional[_AnyStr], close: bool
+    ): ...
+    def resolve_string(
+        self, string: _AnyStr, context: Any, *, base_url: Optional[_AnyStr]
+    ): ...
 
 class XMLSchema:
     def __init__(
