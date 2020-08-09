@@ -21,6 +21,15 @@
         result = element.get("my-attr")
         reveal_type(result)  # N: Revealed type is 'Union[builtins.str, None]'
 
+-   case: etree_element_iterchildren
+    disable_cache: true
+    main: |
+        from lxml import etree
+        element = etree.Element("foo")
+        reveal_type(element.iterchildren)  # N: Revealed type is 'def (tag: Union[builtins.str, builtins.bytes, lxml.etree.QName, None] =, reversed: builtins.bool =, *tags: Union[builtins.str, builtins.bytes, lxml.etree.QName]) -> typing.Iterable[lxml.etree._Element]'
+        result = element.iterchildren("my-attr")
+        reveal_type(result)  # N: Revealed type is 'typing.Iterable[lxml.etree._Element]'
+
 -   case: etree_xmlparser_makeelement
     disable_cache: true
     main: |

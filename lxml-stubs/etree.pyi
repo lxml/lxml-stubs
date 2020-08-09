@@ -107,11 +107,14 @@ class _Element(Iterable["_Element"], Sized):
     def getroottree(self) -> _ElementTree: ...
     def insert(self, index: int, element: _Element) -> None: ...
     def iter(
-        self, tag: Optional[_AnyStr] = ..., *tags: _AnyStr
+        self, tag: Optional[_TagName] = ..., *tags: _TagName
+    ) -> Iterable[_Element]: ...
+    def iterchildren(
+        self, tag: Optional[_TagName] = ..., reversed: bool = False, *tags: _TagName
     ) -> Iterable[_Element]: ...
     def makeelement(
         self,
-        _tag: Union[_AnyStr, QName],
+        _tag: _TagName,
         attrib: Optional[_DictAnyStr] = ...,
         nsmap: Optional[_NSMap] = ...,
         **_extra: Any
