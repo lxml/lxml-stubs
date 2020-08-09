@@ -1,4 +1,7 @@
 # lxml-stubs
+<!-- start-no-pypi -->
+[![pypi](https://img.shields.io/pypi/v/lxml-stubs.svg)](https://pypi.python.org/pypi/lxml-stubs/)
+<!-- end-no-pypi -->
 
 ## About
 This repository contains external type annotations (see
