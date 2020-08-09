@@ -1,5 +1,6 @@
 # lxml-stubs
 <!-- start-no-pypi -->
+[![Python Tests](https://github.com/lxml/lxml-stubs/workflows/Python%20Tests/badge.svg)](https://github.com/lxml/lxml-stubs/actions?query=workflow%3A%22Python+Tests%22)
 [![pypi](https://img.shields.io/pypi/v/lxml-stubs.svg)](https://pypi.python.org/pypi/lxml-stubs/)
 <!-- end-no-pypi -->
 
