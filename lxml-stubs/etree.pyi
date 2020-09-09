@@ -21,10 +21,7 @@ from typing import (
     overload,
 )
 
-from typing_extensions import (
-    Protocol,
-    Literal,
-)
+from typing_extensions import Literal, Protocol
 
 # dummy for missing stubs
 def __getattr__(name: str) -> Any: ...
