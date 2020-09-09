@@ -43,6 +43,18 @@
         from lxml import etree
         string = etree.tostring(etree.Element("foo"))
         reveal_type(string)  # N: Revealed type is 'builtins.bytes'
+-   case: etree_tostring_bytes_utf8
+    disable_cache: true
+    main: |
+        from lxml import etree
+        string = etree.tostring(etree.Element("foo"), encoding="utf8")
+        reveal_type(string)  # N: Revealed type is 'builtins.bytes'
+-   case: etree_tostring_any_unknown
+    disable_cache: true
+    main: |
+        from lxml import etree
+        string = etree.tostring(etree.Element("foo"), encoding="latin_1")
+        reveal_type(string)  # N: Revealed type is 'Union[builtins.str, builtins.bytes]'
 -   case: etree_tostring_string_str
     disable_cache: true
     main: |
