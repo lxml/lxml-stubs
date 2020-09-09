@@ -21,7 +21,10 @@ from typing import (
     overload,
 )
 
-from typing_extensions import Protocol
+from typing_extensions import (
+    Protocol,
+    Literal,
+)
 
 # dummy for missing stubs
 def __getattr__(name: str) -> Any: ...
@@ -57,6 +60,16 @@ _NSMap = Union[Dict[Union[bytes, None], bytes], Dict[Union[str, None], str]]
 _xpath = Union["XPath", _AnyStr]
 _OptionalNamespace = Optional[Mapping[str, Any]]
 _T = TypeVar("_T")
+_KnownEncodings = Literal[
+    'ASCII',
+    'ascii',
+    'UTF-8',
+    'utf-8',
+    'UTF8',
+    'utf8',
+    'US-ASCII',
+    'us-ascii',
+]
 
 class ElementChildIterator(Iterator["_Element"]):
     def __iter__(self) -> "ElementChildIterator": ...
@@ -379,6 +392,36 @@ def parse(
 def fromstring(
     text: _AnyStr, parser: XMLParser = ..., *, base_url: _AnyStr = ...
 ) -> _Element: ...
+@overload
+def tostring(
+    element_or_tree: Union[_Element, _ElementTree],
+    encoding: Union[Type[str], Literal["unicode"]],
+    method: str = ...,
+    xml_declaration: bool = ...,
+    pretty_print: bool = ...,
+    with_tail: bool = ...,
+    standalone: bool = ...,
+    doctype: str = ...,
+    exclusive: bool = ...,
+    with_comments: bool = ...,
+    inclusive_ns_prefixes: Any = ...,
+) -> str: ...
+@overload
+def tostring(
+    element_or_tree: Union[_Element, _ElementTree],
+    # Should be anything but "unicode", cannot be typed
+    encoding: Optional[_KnownEncodings] = None,
+    method: str = ...,
+    xml_declaration: bool = ...,
+    pretty_print: bool = ...,
+    with_tail: bool = ...,
+    standalone: bool = ...,
+    doctype: str = ...,
+    exclusive: bool = ...,
+    with_comments: bool = ...,
+    inclusive_ns_prefixes: Any = ...,
+) -> bytes: ...
+@overload
 def tostring(
     element_or_tree: Union[_Element, _ElementTree],
     encoding: Union[str, type] = ...,
