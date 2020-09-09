@@ -58,14 +58,14 @@ _xpath = Union["XPath", _AnyStr]
 _OptionalNamespace = Optional[Mapping[str, Any]]
 _T = TypeVar("_T")
 _KnownEncodings = Literal[
-    'ASCII',
-    'ascii',
-    'UTF-8',
-    'utf-8',
-    'UTF8',
-    'utf8',
-    'US-ASCII',
-    'us-ascii',
+    "ASCII",
+    "ascii",
+    "UTF-8",
+    "utf-8",
+    "UTF8",
+    "utf8",
+    "US-ASCII",
+    "us-ascii",
 ]
 
 class ElementChildIterator(Iterator["_Element"]):
