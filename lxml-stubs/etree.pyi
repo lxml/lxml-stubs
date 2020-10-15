@@ -5,6 +5,7 @@
 from typing import (
     IO,
     Any,
+    Callable,
     Dict,
     Iterable,
     Iterator,
@@ -470,3 +471,26 @@ class XPath:
         _etree_or_element: Union[_Element, _ElementTree],
         **_variables: _XPathObject
     ) -> _XPathObject: ...
+
+_ElementFactory = Callable[[Any, Dict[Any, Any]], _Element]
+_CommentFactory = Callable[[Optional[_AnyStr]], _Comment]
+_ProcessingInstructionFactory = Callable[
+    [_AnyStr, Optional[_AnyStr]], _ProcessingInstruction
+]
+
+class TreeBuilder:
+    def __init__(
+        self,
+        element_factory: Optional[_ElementFactory] = ...,
+        parser: Optional[_BaseParser] = ...,
+        comment_factory: Optional[_CommentFactory] = ...,
+        pi_factory: Optional[_ProcessingInstructionFactory] = ...,
+        insert_comments: bool = ...,
+        insert_pis: bool = ...,
+    ) -> None: ...
+    def close(self) -> _Element: ...
+    def comment(self, text: _AnyStr) -> None: ...
+    def data(self, data: _AnyStr) -> None: ...
+    def end(self, tag: _AnyStr) -> None: ...
+    def pi(self, target: _AnyStr, data: Optional[_AnyStr] = ...) -> Any: ...
+    def start(self, tag: _AnyStr, attrib: _DictAnyStr) -> None: ...
