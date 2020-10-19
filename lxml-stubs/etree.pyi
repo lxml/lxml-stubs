@@ -474,9 +474,7 @@ class XPath:
 
 _ElementFactory = Callable[[Any, Dict[_AnyStr, _AnyStr]], _Element]
 _CommentFactory = Callable[[_AnyStr], _Comment]
-_ProcessingInstructionFactory = Callable[
-    [_AnyStr, _AnyStr], _ProcessingInstruction
-]
+_ProcessingInstructionFactory = Callable[[_AnyStr, _AnyStr], _ProcessingInstruction]
 
 class TreeBuilder:
     def __init__(
