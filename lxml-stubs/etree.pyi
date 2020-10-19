@@ -472,10 +472,10 @@ class XPath:
         **_variables: _XPathObject
     ) -> _XPathObject: ...
 
-_ElementFactory = Callable[[Any, Dict[Any, Any]], _Element]
-_CommentFactory = Callable[[Optional[_AnyStr]], _Comment]
+_ElementFactory = Callable[[Any, Dict[_AnyStr, _AnyStr]], _Element]
+_CommentFactory = Callable[[_AnyStr], _Comment]
 _ProcessingInstructionFactory = Callable[
-    [_AnyStr, Optional[_AnyStr]], _ProcessingInstruction
+    [_AnyStr, _AnyStr], _ProcessingInstruction
 ]
 
 class TreeBuilder:
