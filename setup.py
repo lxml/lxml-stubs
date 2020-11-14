@@ -1,6 +1,6 @@
 import re
-from setuptools import setup
 
+from setuptools import setup
 
 tests_require = [
     "pytest>=6.0.0",
@@ -16,14 +16,13 @@ with open("README.md") as fh:
         flags=re.M | re.S,
     )
 
-
 setup(
     name="lxml-stubs",
     version="0.1.1",
     description="Type annotations for the lxml package",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    package_data={"lxml-stubs": ["*.pyi"]},
+    package_data={"lxml-stubs": ["*.pyi", "*/*.pyi"]},
     packages=["lxml-stubs"],
     tests_require=tests_require,
     extras_require={"test": tests_require},
