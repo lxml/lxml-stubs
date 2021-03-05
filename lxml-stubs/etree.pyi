@@ -317,6 +317,23 @@ class XMLParser(_FeedParser):
     ) -> None: ...
     resolvers = ...  # type: _ResolverRegistry
 
+class HTMLParser(_FeedParser):
+    def __init__(
+        self,
+        encoding: Optional[_AnyStr] = ...,
+        collect_ids: bool = ...,
+        compact: bool = ...,
+        huge_tree: bool = ...,
+        no_network: bool = ...,
+        recover: bool = ...,
+        remove_blank_text: bool = ...,
+        remove_comments: bool = ...,
+        remove_pis: bool = ...,
+        schema: Optional[XMLSchema] = ...,
+        strip_cdata: bool = ...,
+        target: Optional[ParserTarget] = ...,
+    ) -> None: ...
+
 class _ResolverRegistry:
     def add(self, resolver: Resolver) -> None: ...
     def remove(self, resolver: Resolver) -> None: ...
@@ -382,6 +399,16 @@ def ProcessingInstruction(
 
 PI = ProcessingInstruction
 
+def HTML(
+    text: _AnyStr,
+    parser: Optional[HTMLParser] = ...,
+    base_url: Optional[_AnyStr] = ...,
+) -> _Element: ...
+def XML(
+    text: _AnyStr,
+    parser: Optional[XMLParser] = ...,
+    base_url: Optional[_AnyStr] = ...,
+) -> _Element: ...
 def cleanup_namespaces(
     tree_or_element: Union[_Element, _ElementTree],
     top_nsmap: Optional[_NSMap] = ...,
