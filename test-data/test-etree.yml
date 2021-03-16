@@ -45,36 +45,35 @@
         parser = etree.HTMLParser()
         element = parser.makeelement("foobar")
         reveal_type(element)  # N: Revealed type is "lxml.etree._Element"
--   case: etree_tostring_bytes
+
+-   case: etree_tostring_encoding_default_or_type
     disable_cache: true
+    parametrized:
+        -   kwd: null
+            rt: builtins.bytes
+        -   kwd: encoding=str
+            rt: builtins.str
     main: |
         from lxml import etree
-        string = etree.tostring(etree.Element("foo"))
-        reveal_type(string)  # N: Revealed type is "builtins.bytes"
--   case: etree_tostring_bytes_utf8
+        string = etree.tostring(etree.Element("foo"), {{ kwd }})
+        reveal_type(string)  # N: Revealed type is "{{ rt }}"
+
+-   case: etree_tostring_encoding_specific
     disable_cache: true
+    parametrized:
+        -   val: ascii
+            rt: builtins.bytes
+        -   val: utf8
+            rt: builtins.bytes
+        -   val: FOOBAR
+            rt: Union[builtins.str, builtins.bytes]
+        -   val: unicode
+            rt: builtins.str
     main: |
         from lxml import etree
-        string = etree.tostring(etree.Element("foo"), encoding="utf8")
-        reveal_type(string)  # N: Revealed type is "builtins.bytes"
--   case: etree_tostring_any_unknown
-    disable_cache: true
-    main: |
-        from lxml import etree
-        string = etree.tostring(etree.Element("foo"), encoding="latin_1")
-        reveal_type(string)  # N: Revealed type is "Union[builtins.str, builtins.bytes]"
--   case: etree_tostring_string_str
-    disable_cache: true
-    main: |
-        from lxml import etree
-        string = etree.tostring(etree.Element("foo"), encoding=str)
-        reveal_type(string)  # N: Revealed type is "builtins.str"
--   case: etree_tostring_string_unicode
-    disable_cache: true
-    main: |
-        from lxml import etree
-        string = etree.tostring(etree.Element("foo"), encoding="unicode")
-        reveal_type(string)  # N: Revealed type is "builtins.str"
+        string = etree.tostring(etree.Element("foo"), encoding="{{ val }}")
+        reveal_type(string)  # N: Revealed type is "{{ rt }}"
+
 -   case: etree_treebuilder_implements_parsertarget
     disable_cache: true
     main: |
