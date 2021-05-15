@@ -71,14 +71,11 @@ class HtmlMixin:
     ) -> None: ...
     def __getattr__(name: str) -> Any: ...  # incomplete
 
-
 class HTMLParser(_HTMLParser):
     pass
 
-
 class XHTMLParser(_XMLParser):
     pass
-
 
 def document_fromstring(
     html: "_AnyStr",
