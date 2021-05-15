@@ -8,7 +8,7 @@ from typing import (
     MutableMapping,
     MutableSet,
     Optional,
-    Tuple
+    Tuple,
 )
 
 from typing_extensions import Literal
