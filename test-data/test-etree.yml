@@ -37,6 +37,14 @@
         parser = etree.XMLParser()
         element = parser.makeelement("foobar")
         reveal_type(element)  # N: Revealed type is 'lxml.etree._Element'
+
+-   case: etree_htmlparser_makeelement
+    disable_cache: true
+    main: |
+        from lxml import etree
+        parser = etree.HTMLParser()
+        element = parser.makeelement("foobar")
+        reveal_type(element)  # N: Revealed type is 'lxml.etree._Element'
 -   case: etree_tostring_bytes
     disable_cache: true
     main: |
@@ -74,3 +82,15 @@
         # if mypy doesn't raise an "Incompatible types in assignment"
         from lxml import etree
         target: etree.ParserTarget = etree.TreeBuilder()
+-   case: etree_HTML_returns_element
+    disable_cache: true
+    main: |
+        from lxml import etree
+        document = etree.HTML("<doc></doc>", parser=etree.HTMLParser(), base_url="http://example.com/")
+        reveal_type(document)  # N: Revealed type is 'lxml.etree._Element'
+-   case: etree_XML_returns_element
+    disable_cache: true
+    main: |
+        from lxml import etree
+        document = etree.XML("<doc></doc>", parser=etree.XMLParser(), base_url="http://example.com/")
+        reveal_type(document)  # N: Revealed type is 'lxml.etree._Element'
