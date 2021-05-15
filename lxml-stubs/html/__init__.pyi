@@ -70,7 +70,7 @@ class HtmlMixin:
         self,
         link_repl_func: Callable[[str], Optional[str]],
         resolve_base_href: bool = ...,
-        base_href: str: ...
+        base_href: str = ...
     ) -> None:
     def __getattr__(name: str) -> Any: ...  # incomplete
 
