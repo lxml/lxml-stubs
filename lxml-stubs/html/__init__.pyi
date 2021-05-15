@@ -18,11 +18,9 @@ if TYPE_CHECKING:
     from .. import XMLParser as _XMLParser
     from .. import _AnySmartStr, _AnyStr, _BaseParser, _Element
 
-
-_HANDLE_FALURES = Literal['ignore', 'discard', None]
+_HANDLE_FALURES = Literal["ignore", "discard", None]
 
 XHTML_NAMESPACE: str = ...
-
 
 class Classes(MutableSet):
     def __init__(self, attributes: MutableMapping[str, Any]) -> None: ...
@@ -35,24 +33,23 @@ class Classes(MutableSet):
     def update(self, values: Iterable[str]) -> None: ...
     def toggle(self, value: str) -> bool: ...
 
-
 class HtmlMixin:
     base_url: Optional[str]
-    forms: Optional[List['_Element']]
-    body: Optional['_Element']
-    head: Optional['_Element']
-    label: Optional['_Element']
+    forms: Optional[List["_Element"]]
+    body: Optional["_Element"]
+    head: Optional["_Element"]
+    label: Optional["_Element"]
 
     def set(self, key: str, value: Any) -> None: ...
     def drop_tree(self) -> None: ...
     def drop_tag(self) -> None: ...
-    def find_rel_links(self, rel: str) -> List['_Element']: ...
-    def find_class(self, class_name: str) -> List['_Element']: ...
+    def find_rel_links(self, rel: str) -> List["_Element"]: ...
+    def find_class(self, class_name: str) -> List["_Element"]: ...
     def get_element_by_id(
-        self, id: str, *default) -> Optional['_Element']: ...
-    def text_content(self) -> '_AnySmartStr': ...
+        self, id: str, *default) -> Optional["_Element"]: ...
+    def text_content(self) -> "_AnySmartStr": ...
     def cssselect(
-        self, expr: str, translator: str = ...) -> List['_Element']: ...
+        self, expr: str, translator: str = ...) -> List["_Element"]: ...
     def make_links_absolute(
         self,
         base_url: str = ...,
@@ -64,7 +61,7 @@ class HtmlMixin:
         handle_failures: _HANDLE_FALURES = ...
     ) -> None: ...
     def iterlinks(self) -> Iterator[
-        Tuple['_Element', Optional[str], str, int]
+        Tuple["_Element", Optional[str], str, int]
     ]: ...
     def rewrite_links(
         self,
@@ -84,25 +81,25 @@ class XHTMLParser(_XMLParser):
 
 
 def document_fromstring(
-    html: '_AnyStr',
-    parser: '_BaseParser' = ...,
+    html: "_AnyStr",
+    parser: "_BaseParser" = ...,
     ensure_head_body: bool = ...,
     **kw
-) -> '_Element': ...
+) -> "_Element": ...
 
 def fragments_fromstring(
-    html: '_AnyStr',
+    html: "_AnyStr",
     no_leading_text: bool = ...,
     base_url: str = ...,
-    parser: '_BaseParser' = ...,
+    parser: "_BaseParser" = ...,
     **kw
-) -> '_Element': ...
+) -> "_Element": ...
 
 def fromstring(
-    html: '_AnyStr',
+    html: "_AnyStr",
     base_url: str = ...,
-    parser: '_BaseParser' = ...,
+    parser: "_BaseParser" = ...,
     **kw
-) -> '_Element': ...
+) -> "_Element": ...
 
 def __getattr__(name: str) -> Any: ...  # incomplete
