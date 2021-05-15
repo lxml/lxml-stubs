@@ -214,9 +214,7 @@ class _Attrib:
     def update(
         self,
         sequence_or_dict: Union[
-            _Attrib,
-            Mapping[_AnyStr, _AnyStr],
-            Sequence[Tuple[_AnyStr, _AnyStr]]
+            _Attrib, Mapping[_AnyStr, _AnyStr], Sequence[Tuple[_AnyStr, _AnyStr]]
         ],
     ) -> None: ...
     def pop(self, key: _AnyStr, default: _AnyStr) -> _AnyStr: ...
