@@ -1,14 +1,22 @@
 from typing import (
-    Any, Callable, Iterable, Iterator, List, MutableMapping, MutableSet,
-    Optional, TYPE_CHECKING, Tuple
+    TYPE_CHECKING,
+    Any,
+    Callable,
+    Iterable,
+    Iterator,
+    List,
+    MutableMapping,
+    MutableSet,
+    Optional,
+    Tuple
 )
 
 from typing_extensions import Literal
 
 if TYPE_CHECKING:
-    from .. import _AnyStr, _AnySmartStr, _BaseParser, _Element
     from .. import HTMLParser as _HTMLParser
     from .. import XMLParser as _XMLParser
+    from .. import _AnySmartStr, _AnyStr, _BaseParser, _Element
 
 
 _HANDLE_FALURES = Literal['ignore', 'discard', None]
