@@ -91,17 +91,17 @@ def document_fromstring(
 ) -> '_Element': ...
 
 def fragments_fromstring(
-    html: '_AnyStr'
-    no_leading_text: bool: ...,
-    base_url: str: ...,
-    parser: '_BaseParser': ...,
+    html: '_AnyStr',
+    no_leading_text: bool = ...,
+    base_url: str = ...,
+    parser: '_BaseParser' = ...,
     **kw
 ) -> '_Element': ...
 
 def fromstring(
     html: '_AnyStr',
     base_url: str = ...,
-    parser: '_BaseParser': ...,
+    parser: '_BaseParser' = ...,
     **kw
 ) -> '_Element': ...
 
