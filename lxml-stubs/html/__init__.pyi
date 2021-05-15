@@ -72,7 +72,7 @@ class HtmlMixin:
         resolve_base_href: bool = ...,
         base_href: str = ...
     ) -> None:
-    def __getattr__(name: str) -> Any: ...  # incomplete
+    def __getattr__(name: str) -> Any: ...
 
 
 class HTMLParser(_HTMLParser):
