@@ -11,9 +11,6 @@ if TYPE_CHECKING:
     from .. import XMLParser as _XMLParser
 
 
-def __fix_docstring(s: str) -> str: ...
-
-
 _HANDLE_FALURES = Literal['ignore', 'discard', None]
 
 XHTML_NAMESPACE: str = ...
@@ -101,4 +98,3 @@ def fromstring(
 ) -> '_Element': ...
 
 def __getattr__(name: str) -> Any: ...  # incomplete
-
