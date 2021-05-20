@@ -164,6 +164,9 @@ class _ElementTree:
     parser = ...  # type: XMLParser
     def getpath(self, element: _Element) -> str: ...
     def getroot(self) -> _Element: ...
+    def iter(
+        self, tag: Optional[_TagName] = ..., *tags: _TagName
+    ) -> Iterable[_Element]: ...
     def write(
         self,
         file: Union[_AnyStr, IO[Any]],
