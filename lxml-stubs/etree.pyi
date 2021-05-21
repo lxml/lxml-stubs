@@ -36,6 +36,8 @@ _AnySmartStr = Union[
     "_ElementUnicodeResult", "_PyElementUnicodeResult", "_ElementStringResult"
 ]
 _TagName = Union[str, bytes, QName]
+# _TagSelector also allows Element, Comment, ProcessingInstruction
+_TagSelector = Union[str, bytes, QName, Any]
 # XPath object - http://lxml.de/xpathxslt.html#xpath-return-values
 _XPathObject = Union[
     bool,
@@ -125,10 +127,13 @@ class _Element(Iterable["_Element"], Sized):
     def getroottree(self) -> _ElementTree: ...
     def insert(self, index: int, element: _Element) -> None: ...
     def iter(
-        self, tag: Optional[_TagName] = ..., *tags: _TagName
+        self, tag: Optional[_TagSelector] = ..., *tags: _TagSelector
     ) -> Iterable[_Element]: ...
     def iterchildren(
-        self, tag: Optional[_TagName] = ..., reversed: bool = False, *tags: _TagName
+        self,
+        tag: Optional[_TagSelector] = ...,
+        reversed: bool = False,
+        *tags: _TagSelector
     ) -> Iterable[_Element]: ...
     def makeelement(
         self,
@@ -166,7 +171,7 @@ class _ElementTree:
     def getpath(self, element: _Element) -> str: ...
     def getroot(self) -> _Element: ...
     def iter(
-        self, tag: Optional[_TagName] = ..., *tags: _TagName
+        self, tag: Optional[_TagSelector] = ..., *tags: _TagSelector
     ) -> Iterable[_Element]: ...
     def write(
         self,

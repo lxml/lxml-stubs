@@ -26,7 +26,7 @@
     main: |
         from lxml import etree
         element = etree.Element("foo")
-        reveal_type(element.iterchildren)  # N: Revealed type is 'def (tag: Union[builtins.str, builtins.bytes, lxml.etree.QName, None] =, reversed: builtins.bool =, *tags: Union[builtins.str, builtins.bytes, lxml.etree.QName]) -> typing.Iterable[lxml.etree._Element]'
+        reveal_type(element.iterchildren)  # N: Revealed type is 'def (tag: Union[builtins.str, builtins.bytes, lxml.etree.QName, Any, None] =, reversed: builtins.bool =, *tags: Union[builtins.str, builtins.bytes, lxml.etree.QName, Any]) -> typing.Iterable[lxml.etree._Element]'
         result = element.iterchildren("my-attr")
         reveal_type(result)  # N: Revealed type is 'typing.Iterable[lxml.etree._Element]'
 
