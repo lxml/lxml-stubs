@@ -4,7 +4,6 @@ from setuptools import setup
 
 tests_require = [
     "pytest>=6.0.0",
-    "pytest-mypy-plugins==1.4.0",
     "coverage[toml]==5.2",
 ]
 

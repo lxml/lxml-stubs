@@ -6,6 +6,11 @@ jobs:
 
   format:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        toxenv:
+          - format
+          - mypy
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python 3.9
@@ -15,7 +20,7 @@ jobs:
     - name: Install dependencies
       run: pip install tox
     - name: Validate formatting
-      run: tox -e format
+      run: tox -e ${{ matrix.toxenv }}
 
   test:
     runs-on: ubuntu-latest
