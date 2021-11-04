@@ -158,6 +158,7 @@ class _Element(Iterable["_Element"], Sized):
     tag = ...  # type: str
     tail = ...  # type: Optional[_AnyStr]
     nsmap = ...  # type: _NSMap
+    prefix = ...  # type: str
     def __iter__(self) -> ElementChildIterator: ...
     def items(self) -> Sequence[Tuple[_AnyStr, _AnyStr]]: ...
     def iterfind(
