@@ -96,6 +96,19 @@ class _ElementStringResult(bytes):
     attrname: Optional[_AnyStr]
     def getparent(self) -> Optional["_Element"]: ...
 
+class DocInfo:
+    root_name = ...  # type: str
+    public_id = ...  # type: Optional[str]
+    system_id = ...  # type: Optional[str]
+    xml_version = ...  # type: Optional[str]
+    encoding = ...  # type: Optional[str]
+    standalone = ...  # type: Optional[bool]
+    URL = ...  # type: str
+    internalDTD = ...  # type: "DTD"
+    externalDTD = ...  # type: "DTD"
+    def __init__(self, tree: Union["_ElementTree", "_Element"]) -> None: ...
+    def clear(self) -> None: ...
+
 class _Element(Iterable["_Element"], Sized):
     def __delitem__(self, key: Union[int, slice]) -> None: ...
     def __getitem__(self, item: int) -> _Element: ...
@@ -172,16 +185,20 @@ class _Element(Iterable["_Element"], Sized):
         smart_strings: bool = ...,
         **_variables: _XPathObject
     ) -> _XPathObject: ...
-    attrib = ...  # type: _Attrib
-    text = ...  # type: Optional[_AnyStr]
     tag = ...  # type: str
-    tail = ...  # type: Optional[_AnyStr]
+    attrib = ...  # type: _Attrib
+    text = ...  # type: Optional[str]
+    tail = ...  # type: Optional[str]
+    prefix = ... # type: str
+    sourceline = ... # Optional[int]
     nsmap = ...  # type: _NSMap
+    base = ...  # type: Optional[str]
 
 class ElementBase(_Element): ...
 
 class _ElementTree:
     parser = ...  # type: XMLParser
+    docinfo = ...  # type: DocInfo
     def getpath(self, element: _Element) -> str: ...
     def getroot(self) -> _Element: ...
     def iter(
@@ -496,7 +513,10 @@ class LxmlError(Error):
 
 class DocumentInvalid(LxmlError): ...
 class LxmlSyntaxError(LxmlError, SyntaxError): ...
-class ParseError(LxmlSyntaxError): ...
+
+class ParseError(LxmlSyntaxError):
+    position: Tuple[int, int]
+
 class XMLSyntaxError(ParseError): ...
 class _Validator: ...
 
