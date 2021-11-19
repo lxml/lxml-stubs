@@ -170,8 +170,8 @@ class _Element(Iterable["_Element"], Sized):
     attrib = ...  # type: _Attrib
     text = ...  # type: Optional[str]
     tail = ...  # type: Optional[str]
-    prefix = ... # type: str
-    sourceline = ... # Optional[int]
+    prefix = ...  # type: str
+    sourceline = ...  # Optional[int]
     nsmap = ...  # type: _NSMap
     base = ...  # type: Optional[str]
     def __iter__(self) -> ElementChildIterator: ...
