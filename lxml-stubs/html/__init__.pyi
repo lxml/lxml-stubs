@@ -14,9 +14,9 @@ from typing import (
 from typing_extensions import Literal
 
 if TYPE_CHECKING:
-    from .. import HTMLParser as _HTMLParser
-    from .. import XMLParser as _XMLParser
-    from .. import _AnySmartStr, _AnyStr, _BaseParser, _Element
+    from ..etree import HTMLParser as _HTMLParser
+    from ..etree import XMLParser as _XMLParser
+    from ..etree import _AnySmartStr, _AnyStr, _BaseParser, _Element
 
 _HANDLE_FALURES = Literal["ignore", "discard", None]
 
@@ -27,7 +27,7 @@ class Classes(MutableSet):
     def add(self, value: str) -> None: ...
     def discard(self, value: str) -> None: ...
     def remove(self, value: str) -> None: ...
-    def __contains__(self, name: str) -> bool: ...
+    def __contains__(self, name: object) -> bool: ...
     def __iter__(self) -> Iterator[str]: ...
     def __len__(self) -> int: ...
     def update(self, values: Iterable[str]) -> None: ...
@@ -61,7 +61,7 @@ class HtmlMixin:
         resolve_base_href: bool = ...,
         base_href: str = ...,
     ) -> None: ...
-    def __getattr__(name: str) -> Any: ...  # incomplete
+    def __getattr__(self, name: str) -> Any: ...  # incomplete
 
 class HTMLParser(_HTMLParser):
     pass
