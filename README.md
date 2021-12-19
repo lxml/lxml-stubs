@@ -23,10 +23,10 @@ Contributions should follow the same style guidelines as
 
 
 ## History
-These type annotations were initially included included in
+These type annotations were initially included in
 [typeshed](https://www.github.com/python/typeshed), but lxml's annotations
-were found to be frequently problematic and have therefore been deleted from
-typeshed.
+are still incomplete and have therefore been extracted from typeshed to
+avoid unintentional false positive results.
 
 The code was extracted by Jelle Zijlstra from the original typeshed codebase
 and moved to a separate repository using `git filter-branch`.
