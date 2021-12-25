@@ -153,7 +153,7 @@ class _Element(Iterable["_Element"], Sized):
     ) -> Iterable[_Element]: ...
     iterdescendants = iter
     def iterfind(
-        self, path: str, namespace: _OptionalNamespace = None
+        self, path: str, namespaces: _OptionalNamespace = None
     ) -> Iterator["_Element"]: ...
     def itersiblings(
         self,
