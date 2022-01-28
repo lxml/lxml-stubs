@@ -416,14 +416,14 @@ class XSLT:
 
 def Comment(text: Optional[_AnyStr] = ...) -> _Comment: ...
 def Element(
-    _tag: _AnyStr,
+    _tag: _TagName,
     attrib: Optional[_DictAnyStr] = ...,
     nsmap: Optional[_NSMap] = ...,
     **extra: _AnyStr
 ) -> _Element: ...
 def SubElement(
     _parent: _Element,
-    _tag: _AnyStr,
+    _tag: _TagName,
     attrib: Optional[_DictAnyStr] = ...,
     nsmap: Optional[_NSMap] = ...,
     **extra: _AnyStr
