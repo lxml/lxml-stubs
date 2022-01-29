@@ -318,7 +318,7 @@ class _BaseParser:
     def copy(self) -> _BaseParser: ...
     def makeelement(
         self,
-        _tag: _AnyStr,
+        _tag: _TagName,
         attrib: Optional[Union[_DictAnyStr, _Attrib]] = ...,
         nsmap: Optional[_NSMap] = ...,
         **_extra: Any
@@ -417,14 +417,14 @@ class XSLT:
 
 def Comment(text: Optional[_AnyStr] = ...) -> _Comment: ...
 def Element(
-    _tag: _AnyStr,
+    _tag: _TagName,
     attrib: Optional[_DictAnyStr] = ...,
     nsmap: Optional[_NSMap] = ...,
     **extra: _AnyStr
 ) -> _Element: ...
 def SubElement(
     _parent: _Element,
-    _tag: _AnyStr,
+    _tag: _TagName,
     attrib: Optional[_DictAnyStr] = ...,
     nsmap: Optional[_NSMap] = ...,
     **extra: _AnyStr
