@@ -317,7 +317,7 @@ class _BaseParser:
     def copy(self) -> _BaseParser: ...
     def makeelement(
         self,
-        _tag: _AnyStr,
+        _tag: _TagName,
         attrib: Optional[Union[_DictAnyStr, _Attrib]] = ...,
         nsmap: Optional[_NSMap] = ...,
         **_extra: Any
