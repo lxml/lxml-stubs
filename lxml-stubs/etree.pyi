@@ -532,8 +532,8 @@ class XPath:
         self,
         path: _AnyStr,
         *,
-        namespaces: Optional[_AnyStr] = ...,
-        extensions: Optional[_AnyStr] = ...,
+        namespaces: Optional[_DictAnyStr] = ...,
+        extensions: Any = ...,
         regexp: bool = ...,
         smart_strings: bool = ...
     ) -> None: ...
