@@ -546,6 +546,16 @@ class XPath(_XPathEvaluatorBase):
     ) -> _XPathObject: ...
     path = ...  # type: str
 
+class ETXPath(XPath):
+    def __init__(
+        self,
+        path: _AnyStr,
+        *,
+        extensions: Any = ...,
+        regexp: bool = ...,
+        smart_strings: bool = ...
+    ) -> None: ...
+
 class XPathElementEvaluator(_XPathEvaluatorBase):
     def __init__(
         self,
