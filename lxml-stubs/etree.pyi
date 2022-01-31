@@ -532,8 +532,8 @@ class XPath:
         self,
         path: _AnyStr,
         *,
-        namespaces: Optional[_AnyStr] = ...,
-        extensions: Optional[_AnyStr] = ...,
+        namespaces: Optional[_DictAnyStr] = ...,
+        extensions: Any = ...,
         regexp: bool = ...,
         smart_strings: bool = ...
     ) -> None: ...
@@ -542,6 +542,7 @@ class XPath:
         _etree_or_element: Union[_Element, _ElementTree],
         **_variables: _XPathObject
     ) -> _XPathObject: ...
+    path = ...  # type: str
 
 _ElementFactory = Callable[[Any, Dict[_AnyStr, _AnyStr]], _Element]
 _CommentFactory = Callable[[_AnyStr], _Comment]
