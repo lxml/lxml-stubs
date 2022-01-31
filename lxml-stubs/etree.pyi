@@ -527,7 +527,9 @@ class DTD(_Validator):
     ) -> None: ...
     def assertValid(self, etree: _Element) -> None: ...
 
-class XPath:
+class _XPathEvaluatorBase: ...
+
+class XPath(_XPathEvaluatorBase):
     def __init__(
         self,
         path: _AnyStr,
@@ -543,6 +545,66 @@ class XPath:
         **_variables: _XPathObject
     ) -> _XPathObject: ...
     path = ...  # type: str
+
+class ETXPath(XPath):
+    def __init__(
+        self,
+        path: _AnyStr,
+        *,
+        extensions: Any = ...,
+        regexp: bool = ...,
+        smart_strings: bool = ...
+    ) -> None: ...
+
+class XPathElementEvaluator(_XPathEvaluatorBase):
+    def __init__(
+        self,
+        element: _Element,
+        *,
+        namespaces: Optional[_DictAnyStr] = ...,
+        extensions: Any = ...,
+        regexp: bool = ...,
+        smart_strings: bool = ...
+    ) -> None: ...
+    def __call__(self, _path: _AnyStr, **_variables: _XPathObject) -> _XPathObject: ...
+    def register_namespace(self, prefix: _AnyStr, uri: _AnyStr) -> None: ...
+    def register_namespaces(self, namespaces: _DictAnyStr) -> None: ...
+
+class XPathDocumentEvaluator(XPathElementEvaluator):
+    def __init__(
+        self,
+        etree: _ElementTree,
+        *,
+        namespaces: Optional[_DictAnyStr] = ...,
+        extensions: Any = ...,
+        regexp: bool = ...,
+        smart_strings: bool = ...
+    ) -> None: ...
+
+@overload
+def XPathEvaluator(
+    etree_or_element: _Element,
+    namespaces: Optional[_DictAnyStr] = ...,
+    extensions: Any = ...,
+    regexp: bool = ...,
+    smart_strings: bool = ...,
+) -> XPathElementEvaluator: ...
+@overload
+def XPathEvaluator(
+    etree_or_element: _ElementTree,
+    namespaces: Optional[_DictAnyStr] = ...,
+    extensions: Any = ...,
+    regexp: bool = ...,
+    smart_strings: bool = ...,
+) -> XPathDocumentEvaluator: ...
+@overload
+def XPathEvaluator(
+    etree_or_element: Union[_Element, _ElementTree],
+    namespaces: Optional[_DictAnyStr] = ...,
+    extensions: Any = ...,
+    regexp: bool = ...,
+    smart_strings: bool = ...,
+) -> Union[XPathElementEvaluator, XPathDocumentEvaluator]: ...
 
 _ElementFactory = Callable[[Any, Dict[_AnyStr, _AnyStr]], _Element]
 _CommentFactory = Callable[[_AnyStr], _Comment]
