@@ -527,7 +527,9 @@ class DTD(_Validator):
     ) -> None: ...
     def assertValid(self, etree: _Element) -> None: ...
 
-class XPath:
+class _XPathEvaluatorBase: ...
+
+class XPath(_XPathEvaluatorBase):
     def __init__(
         self,
         path: _AnyStr,
@@ -544,7 +546,7 @@ class XPath:
     ) -> _XPathObject: ...
     path = ...  # type: str
 
-class XPathElementEvaluator:
+class XPathElementEvaluator(_XPathEvaluatorBase):
     def __init__(
         self,
         element: _Element,
