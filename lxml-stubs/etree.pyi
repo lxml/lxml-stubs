@@ -70,6 +70,7 @@ _KnownEncodings = Literal[
     "US-ASCII",
     "us-ascii",
 ]
+_ElementOrTree = Union[_Element, _ElementTree]
 
 class ElementChildIterator(Iterator["_Element"]):
     def __iter__(self) -> "ElementChildIterator": ...
@@ -406,27 +407,27 @@ class Resolver:
         self, string: _AnyStr, context: Any, *, base_url: Optional[_AnyStr]
     ): ...
 
-class XMLSchema:
+class XMLSchema(_Validator):
     def __init__(
         self,
-        etree: Union[_Element, _ElementTree] = ...,
+        etree: _ElementOrTree = ...,
         file: Union[_AnyStr, IO[Any]] = ...,
     ) -> None: ...
-    def assertValid(self, etree: Union[_Element, _ElementTree]) -> None: ...
+    def __call__(self, etree: _ElementOrTree) -> bool: ...
 
 class XSLTAccessControl: ...
 
 class XSLT:
     def __init__(
         self,
-        xslt_input: Union[_Element, _ElementTree],
+        xslt_input: _ElementOrTree,
         extensions: _Dict_Tuple2AnyStr_Any = ...,
         regexp: bool = ...,
         access_control: XSLTAccessControl = ...,
     ) -> None: ...
     def __call__(
         self,
-        _input: Union[_Element, _ElementTree],
+        _input: _ElementOrTree,
         profile_run: bool = ...,
         **kwargs: Union[_AnyStr, _XSLTQuotedStringParam]
     ) -> _XSLTResultTree: ...
@@ -469,7 +470,7 @@ def XML(
     base_url: Optional[_AnyStr] = ...,
 ) -> _Element: ...
 def cleanup_namespaces(
-    tree_or_element: Union[_Element, _ElementTree],
+    tree_or_element: _ElementOrTree,
     top_nsmap: Optional[_NSMap] = ...,
     keep_ns_prefixes: Optional[Iterable[_AnyStr]] = ...,
 ) -> None: ...
@@ -481,7 +482,7 @@ def fromstring(
 ) -> _Element: ...
 @overload
 def tostring(
-    element_or_tree: Union[_Element, _ElementTree],
+    element_or_tree: _ElementOrTree,
     encoding: Union[Type[str], Literal["unicode"]],
     method: str = ...,
     xml_declaration: bool = ...,
@@ -495,7 +496,7 @@ def tostring(
 ) -> str: ...
 @overload
 def tostring(
-    element_or_tree: Union[_Element, _ElementTree],
+    element_or_tree: _ElementOrTree,
     # Should be anything but "unicode", cannot be typed
     encoding: Optional[_KnownEncodings] = None,
     method: str = ...,
@@ -510,7 +511,7 @@ def tostring(
 ) -> bytes: ...
 @overload
 def tostring(
-    element_or_tree: Union[_Element, _ElementTree],
+    element_or_tree: _ElementOrTree,
     encoding: Union[str, type] = ...,
     method: str = ...,
     xml_declaration: bool = ...,
@@ -537,13 +538,18 @@ class ParseError(LxmlSyntaxError):
     position: Tuple[int, int]
 
 class XMLSyntaxError(ParseError): ...
-class _Validator: ...
+
+class _Validator:
+    def assert_(self, etree: _ElementOrTree) -> None: ...
+    def assertValid(self, etree: _ElementOrTree) -> None: ...
+    def validate(self, etree: _ElementOrTree) -> bool: ...
+    error_log = ...  # type: _ErrorLog
 
 class DTD(_Validator):
     def __init__(
         self, file: Union[_AnyStr, IO[Any]] = ..., *, external_id: Any = ...
     ) -> None: ...
-    def assertValid(self, etree: _Element) -> None: ...
+    def __call__(self, etree: _ElementOrTree) -> bool: ...
 
 class _XPathEvaluatorBase: ...
 
@@ -558,9 +564,7 @@ class XPath(_XPathEvaluatorBase):
         smart_strings: bool = ...
     ) -> None: ...
     def __call__(
-        self,
-        _etree_or_element: Union[_Element, _ElementTree],
-        **_variables: _XPathObject
+        self, _etree_or_element: _ElementOrTree, **_variables: _XPathObject
     ) -> _XPathObject: ...
     path = ...  # type: str
 
@@ -617,7 +621,7 @@ def XPathEvaluator(
 ) -> XPathDocumentEvaluator: ...
 @overload
 def XPathEvaluator(
-    etree_or_element: Union[_Element, _ElementTree],
+    etree_or_element: _ElementOrTree,
     namespaces: Optional[_DictAnyStr] = ...,
     extensions: Any = ...,
     regexp: bool = ...,
