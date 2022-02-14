@@ -13,3 +13,12 @@ include_trailing_comma = true
 balanced_wrapping = true
 default_section = "THIRDPARTY"
 use_parentheses = true
+
+[tool.pyright]
+include = ["lxml-stubs"]
+exclude = [
+    "**/node_modules",
+    "**/__pycache__",
+    "/.tox",
+]
+reportPrivateUsage = false
