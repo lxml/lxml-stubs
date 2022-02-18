@@ -123,12 +123,19 @@ class _Element(Iterable["_Element"], Sized):
     def find(
         self, path: str, namespaces: _OptionalNamespace = ...
     ) -> Optional["_Element"]: ...
+    @overload
     def findtext(
         self,
         path: str,
-        default: Optional[str] = ...,
         namespaces: _OptionalNamespace = ...,
     ) -> Optional[str]: ...
+    @overload
+    def findtext(
+        self,
+        path: str,
+        default: _T = ...,
+        namespaces: _OptionalNamespace = ...,
+    ) -> Union[str, _T]: ...
     def findall(
         self, path: str, namespaces: _OptionalNamespace = ...
     ) -> List["_Element"]: ...
