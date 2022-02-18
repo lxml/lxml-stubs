@@ -65,7 +65,7 @@
             rt: builtins.bytes
         -   val: utf8
             rt: builtins.bytes
-        -   val: FOOBAR
+        -   val: unknown_encoding
             rt: Union[builtins.str, builtins.bytes]
         -   val: unicode
             rt: builtins.str
