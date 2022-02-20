@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, Union
 
 from lxml import etree
 
@@ -9,8 +9,11 @@ _DictAnyStr = Union[Dict[str, str], Dict[bytes, bytes]]
 
 class CSSSelector(etree.XPath):
     def __init__(
-        self, css: str, namespaces: Optional[_DictAnyStr] = ..., translator: str = ...
-    ): ...
+        self,
+        css: str,
+        namespaces: etree._NonDefaultNSMapArg = ...,
+        translator: str = ...,
+    ) -> None: ...
     def __call__(
         self,
         _etree_or_element: Union[etree._Element, etree._ElementTree],
