@@ -32,26 +32,23 @@ def __getattr__(name: str) -> Any: ...
 # List/Dict argument to use one type consistently, though, and it is
 # necessary in order to keep these brief.
 _AnyStr = Union[str, bytes]
-_AnySmartStr = Union[
-    "_ElementUnicodeResult", "_PyElementUnicodeResult", "_ElementStringResult"
-]
 _TagName = Union[str, bytes, QName]
 # _TagSelector also allows Element, Comment, ProcessingInstruction
 _TagSelector = Union[str, bytes, QName, Any]
-# XPath object - http://lxml.de/xpathxslt.html#xpath-return-values
-_XPathObject = Union[
+# XPathObject documented in https://lxml.de/xpathxslt.html#xpath-return-values
+# However the type is too versatile to be of any use in further processing,
+# so users are encouraged to do type narrowing by themselves.
+_XPathObject = Any
+# XPath variable supports most of the XPathObject types
+# as _input_ argument value, but most users would probably
+# only use primivite types for substitution.
+_XPathVarArg = Union[
     bool,
+    int,
     float,
-    _AnySmartStr,
     _AnyStr,
-    List[
-        Union[
-            "_Element",
-            _AnySmartStr,
-            _AnyStr,
-            Tuple[Optional[_AnyStr], Optional[_AnyStr]],
-        ]
-    ],
+    _Element,
+    List[_Element],
 ]
 _ListAnyStr = Union[List[str], List[bytes]]
 _DictAnyStr = Union[Dict[str, str], Dict[bytes, bytes]]
@@ -76,26 +73,26 @@ class ElementChildIterator(Iterator["_Element"]):
     def __iter__(self) -> "ElementChildIterator": ...
     def __next__(self) -> "_Element": ...
 
-class _ElementUnicodeResult(str):
-    is_attribute: bool
-    is_tail: bool
-    is_text: bool
-    attrname: Optional[_AnyStr]
-    def getparent(self) -> Optional["_Element"]: ...
+class _SmartStr(str):
+    """Smart string is a private str subclass documented in
+    [return types](https://lxml.de/xpathxslt.html#xpath-return-values)
+    of XPath evaluation result. This stub-only class can be utilized like:
 
-class _PyElementUnicodeResult(str):
-    is_attribute: bool
-    is_tail: bool
-    is_text: bool
-    attrname: Optional[_AnyStr]
-    def getparent(self) -> Optional["_Element"]: ...
+    ```python
+    if TYPE_CHECKING:
+        from lxml.etree import _SmartStr
+    def is_smart_str(s: str) -> TypeGuard[_SmartStr]:
+        return hasattr(s, 'getparent')
+    if is_smart_str(result):
+        parent = result.getparent() # identified as lxml.etree._Element
+    ```
+    """
 
-class _ElementStringResult(bytes):
     is_attribute: bool
     is_tail: bool
     is_text: bool
-    attrname: Optional[_AnyStr]
-    def getparent(self) -> Optional["_Element"]: ...
+    attrname: Optional[str]
+    def getparent(self) -> Optional[_Element]: ...
 
 class DocInfo:
     root_name = ...  # type: str
@@ -161,7 +158,7 @@ class _Element(Iterable["_Element"], Sized):
         self,
         tag: Optional[_TagSelector] = ...,
         reversed: bool = False,
-        *tags: _TagSelector
+        *tags: _TagSelector,
     ) -> Iterable[_Element]: ...
     iterdescendants = iter
     def iterfind(
@@ -171,13 +168,13 @@ class _Element(Iterable["_Element"], Sized):
         self,
         tag: Optional[_TagSelector] = ...,
         preceding: bool = False,
-        *tags: _TagSelector
+        *tags: _TagSelector,
     ) -> Iterable[_Element]: ...
     def itertext(
         self,
         tag: Optional[_TagSelector] = ...,
         with_tail: bool = False,
-        *tags: _TagSelector
+        *tags: _TagSelector,
     ) -> Iterable[_AnyStr]: ...
     def keys(self) -> Sequence[_AnyStr]: ...
     def makeelement(
@@ -185,7 +182,7 @@ class _Element(Iterable["_Element"], Sized):
         _tag: _TagName,
         attrib: Optional[_DictAnyStr] = ...,
         nsmap: Optional[_NSMap] = ...,
-        **_extra: Any
+        **_extra: Any,
     ) -> _Element: ...
     def remove(self, element: _Element) -> None: ...
     def replace(self, old_element: _Element, new_element: _Element) -> None: ...
@@ -197,7 +194,7 @@ class _Element(Iterable["_Element"], Sized):
         namespaces: Optional[_DictAnyStr] = ...,
         extensions: Any = ...,
         smart_strings: bool = ...,
-        **_variables: _XPathObject
+        **_variables: _XPathVarArg,
     ) -> _XPathObject: ...
     tag = ...  # type: str
     attrib = ...  # type: _Attrib
@@ -259,14 +256,14 @@ class _ElementTree:
         namespaces: Optional[_DictAnyStr] = ...,
         extensions: Any = ...,
         smart_strings: bool = ...,
-        **_variables: _XPathObject
+        **_variables: _XPathVarArg,
     ) -> _XPathObject: ...
     def xslt(
         self,
         _xslt: XSLT,
         extensions: Optional[_Dict_Tuple2AnyStr_Any] = ...,
         access_control: Optional[XSLTAccessControl] = ...,
-        **_variables: Any
+        **_variables: Any,
     ) -> _ElementTree: ...
 
 class __ContentOnlyEleement(_Element): ...
@@ -347,7 +344,7 @@ class _BaseParser:
         _tag: _TagName,
         attrib: Optional[Union[_DictAnyStr, _Attrib]] = ...,
         nsmap: Optional[_NSMap] = ...,
-        **_extra: Any
+        **_extra: Any,
     ) -> _Element: ...
     def setElementClassLookup(
         self, lookup: Optional[ElementClassLookup] = ...
@@ -436,7 +433,7 @@ class XSLT:
         self,
         _input: _ElementOrTree,
         profile_run: bool = ...,
-        **kwargs: Union[_AnyStr, _XSLTQuotedStringParam]
+        **kwargs: Union[_AnyStr, _XSLTQuotedStringParam],
     ) -> _XSLTResultTree: ...
     @staticmethod
     def strparam(s: _AnyStr) -> _XSLTQuotedStringParam: ...
@@ -446,14 +443,14 @@ def Element(
     _tag: _TagName,
     attrib: Optional[_DictAnyStr] = ...,
     nsmap: Optional[_NSMap] = ...,
-    **extra: _AnyStr
+    **extra: _AnyStr,
 ) -> _Element: ...
 def SubElement(
     _parent: _Element,
     _tag: _TagName,
     attrib: Optional[_DictAnyStr] = ...,
     nsmap: Optional[_NSMap] = ...,
-    **extra: _AnyStr
+    **extra: _AnyStr,
 ) -> _Element: ...
 def ElementTree(
     element: _Element = ...,
@@ -568,10 +565,12 @@ class XPath(_XPathEvaluatorBase):
         namespaces: Optional[_DictAnyStr] = ...,
         extensions: Any = ...,
         regexp: bool = ...,
-        smart_strings: bool = ...
+        smart_strings: bool = ...,
     ) -> None: ...
     def __call__(
-        self, _etree_or_element: _ElementOrTree, **_variables: _XPathObject
+        self,
+        _etree_or_element: _ElementOrTree,
+        **_variables: _XPathVarArg,
     ) -> _XPathObject: ...
     path = ...  # type: str
 
@@ -582,7 +581,7 @@ class ETXPath(XPath):
         *,
         extensions: Any = ...,
         regexp: bool = ...,
-        smart_strings: bool = ...
+        smart_strings: bool = ...,
     ) -> None: ...
 
 class XPathElementEvaluator(_XPathEvaluatorBase):
@@ -593,9 +592,9 @@ class XPathElementEvaluator(_XPathEvaluatorBase):
         namespaces: Optional[_DictAnyStr] = ...,
         extensions: Any = ...,
         regexp: bool = ...,
-        smart_strings: bool = ...
+        smart_strings: bool = ...,
     ) -> None: ...
-    def __call__(self, _path: _AnyStr, **_variables: _XPathObject) -> _XPathObject: ...
+    def __call__(self, _path: _AnyStr, **_variables: _XPathVarArg) -> _XPathObject: ...
     def register_namespace(self, prefix: _AnyStr, uri: _AnyStr) -> None: ...
     def register_namespaces(self, namespaces: _DictAnyStr) -> None: ...
 
@@ -607,7 +606,7 @@ class XPathDocumentEvaluator(XPathElementEvaluator):
         namespaces: Optional[_DictAnyStr] = ...,
         extensions: Any = ...,
         regexp: bool = ...,
-        smart_strings: bool = ...
+        smart_strings: bool = ...,
     ) -> None: ...
 
 @overload
