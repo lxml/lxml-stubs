@@ -1,4 +1,4 @@
-from typing import Any, Dict, Union
+from typing import Any, Dict, Optional, Union
 
 from lxml import etree
 
@@ -11,7 +11,7 @@ class CSSSelector(etree.XPath):
     def __init__(
         self,
         css: str,
-        namespaces: etree._NonDefaultNSMapArg = ...,
+        namespaces: Optional[etree._NonDefaultNSMapArg] = ...,
         translator: str = ...,
     ) -> None: ...
     def __call__(
