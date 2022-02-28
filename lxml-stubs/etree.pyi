@@ -2,6 +2,7 @@
 # This is *far* from complete, and the stubgen-generated ones crash mypy.
 # Any use of `Any` below means I couldn't figure out the type.
 
+from os import PathLike
 from typing import (
     IO,
     Any,
@@ -79,6 +80,7 @@ _KnownEncodings = Literal[
     "us-ascii",
 ]
 _ElementOrTree = Union[_Element, _ElementTree]
+_FileSource = Union[_AnyStr, IO[Any], PathLike[Any]]
 
 class ElementChildIterator(Iterator["_Element"]):
     def __iter__(self) -> "ElementChildIterator": ...
@@ -241,7 +243,7 @@ class _ElementTree:
     ) -> Iterable[_Element]: ...
     def write(
         self,
-        file: Union[_AnyStr, IO[Any]],
+        file: _FileSource,
         encoding: _AnyStr = ...,
         method: _AnyStr = ...,
         pretty_print: bool = ...,
@@ -255,7 +257,7 @@ class _ElementTree:
     ) -> None: ...
     def write_c14n(
         self,
-        file: Union[_AnyStr, IO[Any]],
+        file: _FileSource,
         with_comments: bool = ...,
         compression: int = ...,
         inclusive_ns_prefixes: Iterable[_AnyStr] = ...,
@@ -427,7 +429,7 @@ class XMLSchema(_Validator):
     def __init__(
         self,
         etree: _ElementOrTree = ...,
-        file: Union[_AnyStr, IO[Any]] = ...,
+        file: _FileSource = ...,
     ) -> None: ...
     def __call__(self, etree: _ElementOrTree) -> bool: ...
 
@@ -466,7 +468,7 @@ def SubElement(
 ) -> _Element: ...
 def ElementTree(
     element: _Element = ...,
-    file: Union[_AnyStr, IO[Any]] = ...,
+    file: _FileSource = ...,
     parser: XMLParser = ...,
 ) -> _ElementTree: ...
 def ProcessingInstruction(
@@ -491,7 +493,7 @@ def cleanup_namespaces(
     keep_ns_prefixes: Optional[Iterable[_AnyStr]] = ...,
 ) -> None: ...
 def parse(
-    source: Union[_AnyStr, IO[Any]], parser: XMLParser = ..., base_url: _AnyStr = ...
+    source: _FileSource, parser: XMLParser = ..., base_url: _AnyStr = ...
 ) -> _ElementTree: ...
 def fromstring(
     text: _AnyStr, parser: XMLParser = ..., *, base_url: _AnyStr = ...
@@ -562,9 +564,7 @@ class _Validator:
     error_log = ...  # type: _ErrorLog
 
 class DTD(_Validator):
-    def __init__(
-        self, file: Union[_AnyStr, IO[Any]] = ..., *, external_id: Any = ...
-    ) -> None: ...
+    def __init__(self, file: _FileSource = ..., *, external_id: Any = ...) -> None: ...
     def __call__(self, etree: _ElementOrTree) -> bool: ...
 
 class _XPathEvaluatorBase: ...
