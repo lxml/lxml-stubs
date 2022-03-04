@@ -6,7 +6,7 @@ from lxml.etree import ElementBase, XMLParser
 def __getattr__(name) -> Any: ...
 
 class ObjectifiedElement(ElementBase):
-    pass
+    def __getattr__(self, name) -> ObjectifiedElement: ...
 
 def fromstring(
     text: Union[bytes, str],
