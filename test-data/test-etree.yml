@@ -3,7 +3,7 @@
     main: |
         from lxml import etree
         document = etree.fromstring("<doc></doc>")
-        reveal_type(document)  # N: Revealed type is "Union[lxml.etree._Element, None]"
+        reveal_type(document)  # N: Revealed type is "lxml.etree._Element"
 
 -   case: etree_from_empty_string_with_parser_recovery_returns_none
     disable_cache: true

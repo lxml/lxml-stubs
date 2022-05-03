@@ -497,6 +497,14 @@ def parse(
     parser: Union[XMLParser, HTMLParser] = ...,
     base_url: _AnyStr = ...,
 ) -> _ElementTree: ...
+@overload
+def fromstring(
+    text: _AnyStr,
+    parser: None = ...,
+    *,
+    base_url: _AnyStr = ...,
+) -> _Element: ...
+@overload
 def fromstring(
     text: _AnyStr,
     parser: Union[XMLParser, HTMLParser] = ...,
