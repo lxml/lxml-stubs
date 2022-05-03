@@ -11,7 +11,7 @@
         from lxml import etree
         parser = etree.HTMLParser(recover=True)
         document = etree.fromstring("", parser)
-        reveal_type(document)  # N: Revealed type is "Union[lxml.etree._Element, None]"
+        reveal_type(document)  # N: Revealed type is "Union[lxml.etree._Element, Any]"
 
 -   case: etree_element_find
     disable_cache: true

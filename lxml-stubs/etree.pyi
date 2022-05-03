@@ -510,7 +510,7 @@ def fromstring(
     parser: Union[XMLParser, HTMLParser] = ...,
     *,
     base_url: _AnyStr = ...,
-) -> Optional[_Element]: ...
+) -> Union[_Element, Any]: ...
 @overload
 def tostring(
     element_or_tree: _ElementOrTree,
