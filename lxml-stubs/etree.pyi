@@ -496,7 +496,7 @@ def parse(
     source: _FileSource,
     parser: Union[XMLParser, HTMLParser] = ...,
     base_url: _AnyStr = ...,
-) -> _ElementTree: ...
+) -> Union[_ElementTree, Any]: ...
 @overload
 def fromstring(
     text: _AnyStr,
