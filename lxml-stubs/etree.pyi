@@ -244,8 +244,8 @@ class _ElementTree:
     def parse(
         self,
         source: _FileSource,
-        parser: XMLParser | None = ...,
-        base_url: _AnyStr | None = ...,
+        parser: Optional[XMLParser] = ...,
+        base_url: Optional[_AnyStr] = ...,
     ) -> _Element: ...
     def write(
         self,
