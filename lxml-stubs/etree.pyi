@@ -54,6 +54,7 @@ _XPathObject = Union[
         ]
     ],
 ]
+_AnyParser = Union["XMLParser", "HTMLParser"]
 _ListAnyStr = Union[List[str], List[bytes]]
 _DictAnyStr = Union[Dict[str, str], Dict[bytes, bytes]]
 _Dict_Tuple2AnyStr_Any = Union[Dict[Tuple[str, str], Any], Tuple[bytes, bytes], Any]
@@ -222,7 +223,7 @@ class _Element(Iterable["_Element"], Sized):
 class ElementBase(_Element): ...
 
 class _ElementTree:
-    parser = ...  # type: XMLParser
+    parser = ...  # type: _AnyParser
     docinfo = ...  # type: DocInfo
     def find(
         self, path: str, namespaces: Optional[_NSMapArg] = ...
@@ -244,7 +245,7 @@ class _ElementTree:
     def parse(
         self,
         source: _FileSource,
-        parser: Optional[XMLParser] = ...,
+        parser: Optional[_AnyParser] = ...,
         base_url: Optional[_AnyStr] = ...,
     ) -> _Element: ...
     def write(
@@ -475,7 +476,7 @@ def SubElement(
 def ElementTree(
     element: _Element = ...,
     file: _FileSource = ...,
-    parser: XMLParser = ...,
+    parser: _AnyParser = ...,
 ) -> _ElementTree: ...
 def ProcessingInstruction(
     target: _AnyStr, text: _AnyStr = ...
@@ -500,7 +501,7 @@ def cleanup_namespaces(
 ) -> None: ...
 def parse(
     source: _FileSource,
-    parser: Union[XMLParser, HTMLParser] = ...,
+    parser: _AnyParser = ...,
     base_url: _AnyStr = ...,
 ) -> Union[_ElementTree, Any]: ...
 @overload
@@ -513,7 +514,7 @@ def fromstring(
 @overload
 def fromstring(
     text: _AnyStr,
-    parser: Union[XMLParser, HTMLParser] = ...,
+    parser: _AnyParser = ...,
     *,
     base_url: _AnyStr = ...,
 ) -> Union[_Element, Any]: ...
