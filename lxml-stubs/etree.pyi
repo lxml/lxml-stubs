@@ -499,11 +499,24 @@ def cleanup_namespaces(
     keep_ns_prefixes: Optional[Iterable[_AnyStr]] = ...,
 ) -> None: ...
 def parse(
-    source: _FileSource, parser: XMLParser = ..., base_url: _AnyStr = ...
-) -> _ElementTree: ...
+    source: _FileSource,
+    parser: Union[XMLParser, HTMLParser] = ...,
+    base_url: _AnyStr = ...,
+) -> Union[_ElementTree, Any]: ...
+@overload
 def fromstring(
-    text: _AnyStr, parser: XMLParser = ..., *, base_url: _AnyStr = ...
+    text: _AnyStr,
+    parser: None = ...,
+    *,
+    base_url: _AnyStr = ...,
 ) -> _Element: ...
+@overload
+def fromstring(
+    text: _AnyStr,
+    parser: Union[XMLParser, HTMLParser] = ...,
+    *,
+    base_url: _AnyStr = ...,
+) -> Union[_Element, Any]: ...
 @overload
 def tostring(
     element_or_tree: _ElementOrTree,
