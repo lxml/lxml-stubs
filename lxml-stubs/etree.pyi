@@ -241,6 +241,12 @@ class _ElementTree:
     def iter(
         self, tag: Optional[_TagSelector] = ..., *tags: _TagSelector
     ) -> Iterable[_Element]: ...
+    def parse(
+        self,
+        source: _FileSource,
+        parser: Optional[XMLParser] = ...,
+        base_url: Optional[_AnyStr] = ...,
+    ) -> _Element: ...
     def write(
         self,
         file: _FileSource,
