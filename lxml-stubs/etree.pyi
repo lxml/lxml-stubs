@@ -242,6 +242,9 @@ class _ElementTree:
     def iter(
         self, tag: Optional[_TagSelector] = ..., *tags: _TagSelector
     ) -> Iterable[_Element]: ...
+    def iterfind(
+        self, path: str, namespaces: Optional[_NSMapArg] = ...
+    ) -> Iterator["_Element"]: ...
     def parse(
         self,
         source: _FileSource,
