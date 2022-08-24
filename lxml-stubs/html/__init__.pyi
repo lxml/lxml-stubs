@@ -18,7 +18,7 @@ from typing_extensions import Literal
 if TYPE_CHECKING:
     from ..etree import HTMLParser as _HTMLParser
     from ..etree import XMLParser as _XMLParser
-    from ..etree import _AnySmartStr, _AnyStr, _BaseParser, _Element
+    from ..etree import _AnySmartStr, _AnyStr, _BaseParser, _Element, _TagName
 
 _HANDLE_FALURES = Literal["ignore", "discard", None]
 
@@ -41,7 +41,7 @@ class HtmlMixin:
     body: Optional["_Element"]
     head: Optional["_Element"]
     label: Optional["_Element"]
-    def set(self, key: str, value: Any) -> None: ...
+    def set(self, key: _TagName, value: Any) -> None: ...
     def drop_tree(self) -> None: ...
     def drop_tag(self) -> None: ...
     def find_rel_links(self, rel: str) -> List["_Element"]: ...
