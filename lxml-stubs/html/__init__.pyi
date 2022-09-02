@@ -16,7 +16,7 @@ from typing_extensions import Literal
 if TYPE_CHECKING:
     from ..etree import HTMLParser as _HTMLParser
     from ..etree import XMLParser as _XMLParser
-    from ..etree import _AnySmartStr, _AnyStr, _BaseParser, _Element
+    from ..etree import _AnySmartStr, _BaseParser, _Element, _StrOrBytes
 
 _HANDLE_FALURES = Literal["ignore", "discard", None]
 
@@ -70,16 +70,16 @@ class XHTMLParser(_XMLParser):
     pass
 
 def document_fromstring(
-    html: "_AnyStr", parser: "_BaseParser" = ..., ensure_head_body: bool = ..., **kw
+    html: _StrOrBytes, parser: "_BaseParser" = ..., ensure_head_body: bool = ..., **kw
 ) -> "_Element": ...
 def fragments_fromstring(
-    html: "_AnyStr",
+    html: _StrOrBytes,
     no_leading_text: bool = ...,
     base_url: str = ...,
     parser: "_BaseParser" = ...,
     **kw
 ) -> "_Element": ...
 def fromstring(
-    html: "_AnyStr", base_url: str = ..., parser: "_BaseParser" = ..., **kw
+    html: _StrOrBytes, base_url: Optional[str] = ..., parser: "_BaseParser" = ..., **kw
 ) -> "_Element": ...
 def __getattr__(name: str) -> Any: ...  # incomplete
