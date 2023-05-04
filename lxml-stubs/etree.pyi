@@ -171,8 +171,8 @@ class _Element(Iterable["_Element"], Sized):
     def iterchildren(
         self,
         tag: Optional[_TagSelector] = ...,
-        reversed: bool = False,
         *tags: _TagSelector,
+        reversed: bool = False,
     ) -> Iterator[_Element]: ...
     iterdescendants = iter
     def iterfind(
@@ -181,14 +181,14 @@ class _Element(Iterable["_Element"], Sized):
     def itersiblings(
         self,
         tag: Optional[_TagSelector] = ...,
-        preceding: bool = False,
         *tags: _TagSelector,
+        preceding: bool = False,
     ) -> Iterator[_Element]: ...
     def itertext(
         self,
         tag: Optional[_TagSelector] = ...,
-        with_tail: bool = False,
         *tags: _TagSelector,
+        with_tail: bool = False,
     ) -> Iterator[_AnyStr]: ...
     def keys(self) -> Sequence[_AnyStr]: ...
     def makeelement(
