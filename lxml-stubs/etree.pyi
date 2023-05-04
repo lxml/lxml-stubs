@@ -7,6 +7,7 @@ from typing import (
     IO,
     Any,
     Callable,
+    Collection,
     Dict,
     Iterable,
     Iterator,
@@ -38,7 +39,7 @@ _AnySmartStr = Union[
 ]
 _TagName = Union[str, bytes, QName]
 # _TagSelector also allows Element, Comment, ProcessingInstruction
-_TagSelector = Union[str, bytes, QName, Any]
+_TagSelector = Union[str, bytes, QName, Collection[Any], Any]  # really Collection[_TagSelector]
 # XPath object - http://lxml.de/xpathxslt.html#xpath-return-values
 _XPathObject = Union[
     bool,
