@@ -318,7 +318,9 @@ class _Attrib:
     def update(
         self,
         sequence_or_dict: Union[
-            _Attrib, Mapping[_TagName, _ValueType], Sequence[Tuple[_TagName, _ValueType]]
+            _Attrib,
+            Mapping[_TagName, _ValueType],
+            Sequence[Tuple[_TagName, _ValueType]],
         ],
     ) -> None: ...
     @overload
@@ -652,7 +654,9 @@ class XPathElementEvaluator(_XPathEvaluatorBase):
         regexp: bool = ...,
         smart_strings: bool = ...,
     ) -> None: ...
-    def __call__(self, _path: _StrOrBytes, **_variables: _XPathObject) -> _XPathObject: ...
+    def __call__(
+        self, _path: _StrOrBytes, **_variables: _XPathObject
+    ) -> _XPathObject: ...
     def register_namespace(self, prefix: _StrOrBytes, uri: _StrOrBytes) -> None: ...
     def register_namespaces(
         self, namespaces: Optional[_NonDefaultNSMapArg]
@@ -696,7 +700,9 @@ def XPathEvaluator(
 
 _ElementFactory = Callable[[_StrOrBytes, Dict[_StrOrBytes, _StrOrBytes]], _Element]
 _CommentFactory = Callable[[_StrOrBytes], _Comment]
-_ProcessingInstructionFactory = Callable[[_StrOrBytes, _StrOrBytes], _ProcessingInstruction]
+_ProcessingInstructionFactory = Callable[
+    [_StrOrBytes, _StrOrBytes], _ProcessingInstruction
+]
 
 class TreeBuilder:
     def __init__(
