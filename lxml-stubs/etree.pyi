@@ -70,7 +70,7 @@ else:
     _DictAnyStr = Union[Dict[str, str], Dict[bytes, bytes]]
 _StrOrBytes = Union[str, bytes]
 _ValueType = Union[str, bytes, QName]
-_InputDictAnyStr = [Dict[str, str], Dict[bytes, bytes]]
+_InputDictAnyStr = Union[Dict[str, str], Dict[bytes, bytes]]
 _ExtensionsDict = Dict[Tuple[_StrOrBytes, _StrOrBytes], Any]
 
 # See https://github.com/python/typing/pull/273
