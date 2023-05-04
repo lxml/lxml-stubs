@@ -39,13 +39,7 @@ _AnySmartStr = Union[
 ]
 _TagName = Union[str, bytes, QName]
 # _TagSelector also allows Element, Comment, ProcessingInstruction
-_TagSelector = Union[
-    str,
-    bytes,
-    QName,
-    Collection[Any],  # really Collection[_TagSelector]
-    Any,
-]
+_TagSelector = Union[_TagName, Collection[_TagSelector], Any]
 # XPath object - http://lxml.de/xpathxslt.html#xpath-return-values
 _XPathObject = Union[
     bool,
