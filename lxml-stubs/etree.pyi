@@ -9,6 +9,7 @@ from typing import (
     Any,
     AnyStr,
     Callable,
+    Collection,
     Dict,
     Iterable,
     Iterator,
@@ -25,7 +26,7 @@ from typing import (
     overload,
 )
 
-from typing_extensions import Literal, Protocol, TypeGuard
+from typing_extensions import Literal, Protocol, TypeAlias, TypeGuard
 
 # dummy for missing stubs
 def __getattr__(name: str) -> Any: ...
@@ -44,7 +45,7 @@ _AnySmartStr = Union[
 ]
 _TagName = Union[str, bytes, QName]
 # _TagSelector also allows Element, Comment, ProcessingInstruction
-_TagSelector = Union[str, bytes, QName, Any]
+_TagSelector = Union[_TagName, Collection[_TagSelector], Any]
 # XPath object - http://lxml.de/xpathxslt.html#xpath-return-values
 _XPathObject = Union[
     bool,
@@ -183,8 +184,8 @@ class _Element(Iterable["_Element"], Sized):
     def iterchildren(
         self,
         tag: Optional[_TagSelector] = ...,
-        reversed: bool = False,
         *tags: _TagSelector,
+        reversed: bool = False,
     ) -> Iterator[_Element]: ...
     iterdescendants = iter
     def iterfind(
@@ -193,14 +194,14 @@ class _Element(Iterable["_Element"], Sized):
     def itersiblings(
         self,
         tag: Optional[_TagSelector] = ...,
-        preceding: bool = False,
         *tags: _TagSelector,
+        preceding: bool = False,
     ) -> Iterator[_Element]: ...
     def itertext(
         self,
         tag: Optional[_TagSelector] = ...,
-        with_tail: bool = False,
         *tags: _TagSelector,
+        with_tail: bool = False,
     ) -> Iterator[_StrResult]: ...
     def keys(self) -> Sequence[_StrResult]: ...
     def makeelement(
@@ -715,3 +716,64 @@ class TreeBuilder:
     def start(self, tag: _TagName, attrib: Dict[_StrOrBytes, _StrOrBytes]) -> None: ...
 
 def iselement(element: Any) -> TypeGuard[_Element]: ...
+
+_ParseEventType: TypeAlias = Literal[
+    "start", "end", "start-ns", "end-ns", "comment", "pi"
+]
+_ParseEvent: TypeAlias = Union[
+    tuple[Literal["start"], _Element],
+    tuple[Literal["end"], _Element],
+    tuple[Literal["start-ns"], Tuple[_AnyStr, _AnyStr]],
+    tuple[Literal["end-ns"], None],
+    tuple[Literal["comment"], _Comment],
+    tuple[Literal["pi"], _ProcessingInstruction],
+]
+
+class XMLPullParser(XMLParser):
+    def __init__(
+        self,
+        events: Optional[Iterable[_ParseEventType]] = ...,
+        *,
+        tag: Optional[_TagSelector] = ...,
+        base_url: Optional[_AnyStr] = ...,
+        encoding: Optional[_AnyStr] = ...,
+        attribute_defaults: bool = ...,
+        dtd_validation: bool = ...,
+        load_dtd: bool = ...,
+        no_network: bool = ...,
+        ns_clean: bool = ...,
+        recover: bool = ...,
+        schema: Optional[XMLSchema] = ...,
+        huge_tree: bool = ...,
+        remove_blank_text: bool = ...,
+        resolve_entities: bool = ...,
+        remove_comments: bool = ...,
+        remove_pis: bool = ...,
+        strip_cdata: bool = ...,
+        collect_ids: bool = ...,
+        target: Optional[ParserTarget] = ...,
+        compact: bool = ...,
+    ) -> None: ...
+    def read_events(self) -> Iterator[_ParseEvent]: ...
+
+class HTMLPullParser(HTMLParser):
+    def __init__(
+        self,
+        events: Optional[Iterable[_ParseEventType]] = ...,
+        *,
+        tag: Optional[_TagSelector] = ...,
+        base_url: Optional[_AnyStr] = ...,
+        encoding: Optional[_AnyStr] = ...,
+        collect_ids: bool = ...,
+        compact: bool = ...,
+        huge_tree: bool = ...,
+        no_network: bool = ...,
+        recover: bool = ...,
+        remove_blank_text: bool = ...,
+        remove_comments: bool = ...,
+        remove_pis: bool = ...,
+        schema: Optional[XMLSchema] = ...,
+        strip_cdata: bool = ...,
+        target: Optional[ParserTarget] = ...,
+    ) -> None: ...
+    def read_events(self) -> Iterator[_ParseEvent]: ...

@@ -34,7 +34,7 @@
     main: |
         from lxml import etree
         element = etree.Element("foo")
-        reveal_type(element.iterchildren)  # N: Revealed type is "def (tag: Union[builtins.str, builtins.bytes, lxml.etree.QName, Any, None] =, reversed: builtins.bool =, *tags: Union[builtins.str, builtins.bytes, lxml.etree.QName, Any]) -> typing.Iterator[lxml.etree._Element]"
+        reveal_type(element.iterchildren)  # N: Revealed type is "def (tag: Union[Union[builtins.str, builtins.bytes, lxml.etree.QName], typing.Collection[Union[builtins.str, builtins.bytes, lxml.etree.QName, typing.Collection[...], ...]], Any, None] =, *tags: Union[builtins.str, builtins.bytes, lxml.etree.QName, typing.Collection[...], ...], *, reversed: builtins.bool =) -> typing.Iterator[lxml.etree._Element]"
         result = element.iterchildren("my-attr")
         reveal_type(result)  # N: Revealed type is "typing.Iterator[lxml.etree._Element]"
 
@@ -101,3 +101,39 @@
         from lxml import etree
         document = etree.XML("<doc></doc>", parser=etree.XMLParser(), base_url="http://example.com/")
         reveal_type(document)  # N: Revealed type is "lxml.etree._Element"
+-   case: etree_XMLPullParser
+    disable_cache: true
+    main: |
+        from lxml import etree
+        parser = etree.XMLPullParser()
+        event = next(parser.read_events())
+        if event[0] == "start":
+            reveal_type(event[1])  # N: Revealed type is "lxml.etree._Element"
+        elif event[0] == "end":
+            reveal_type(event[1])  # N: Revealed type is "lxml.etree._Element"
+        elif event[0] == "start-ns":
+            reveal_type(event[1])  # N: Revealed type is "Tuple[Union[builtins.str, builtins.bytes], Union[builtins.str, builtins.bytes]]"
+        elif event[0] == "end-ns":
+            reveal_type(event[1])  # N: Revealed type is "None"
+        elif event[0] == "comment":
+            reveal_type(event[1])  # N: Revealed type is "lxml.etree._Comment"
+        elif event[0] == "pi":
+            reveal_type(event[1])  # N: Revealed type is "lxml.etree._ProcessingInstruction"
+-   case: etree_HTMLPullParser
+    disable_cache: true
+    main: |
+        from lxml import etree
+        parser = etree.HTMLPullParser()
+        event = next(parser.read_events())
+        if event[0] == "start":
+            reveal_type(event[1])  # N: Revealed type is "lxml.etree._Element"
+        elif event[0] == "end":
+            reveal_type(event[1])  # N: Revealed type is "lxml.etree._Element"
+        elif event[0] == "start-ns":
+            reveal_type(event[1])  # N: Revealed type is "Tuple[Union[builtins.str, builtins.bytes], Union[builtins.str, builtins.bytes]]"
+        elif event[0] == "end-ns":
+            reveal_type(event[1])  # N: Revealed type is "None"
+        elif event[0] == "comment":
+            reveal_type(event[1])  # N: Revealed type is "lxml.etree._Comment"
+        elif event[0] == "pi":
+            reveal_type(event[1])  # N: Revealed type is "lxml.etree._ProcessingInstruction"
