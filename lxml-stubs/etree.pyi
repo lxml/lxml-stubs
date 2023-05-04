@@ -24,7 +24,7 @@ from typing import (
     overload,
 )
 
-from typing_extensions import Literal, Protocol, TypeGuard
+from typing_extensions import Literal, Protocol, TypeAlias, TypeGuard
 
 # dummy for missing stubs
 def __getattr__(name: str) -> Any: ...
@@ -696,3 +696,64 @@ class TreeBuilder:
     def start(self, tag: _AnyStr, attrib: Dict[_AnyStr, _AnyStr]) -> None: ...
 
 def iselement(element: Any) -> TypeGuard[_Element]: ...
+
+_ParseEventType: TypeAlias = Literal[
+    "start", "end", "start-ns", "end-ns", "comment", "pi"
+]
+_ParseEvent: TypeAlias = Union[
+    tuple[Literal["start"], _Element],
+    tuple[Literal["end"], _Element],
+    tuple[Literal["start-ns"], Tuple[_AnyStr, _AnyStr]],
+    tuple[Literal["end-ns"], None],
+    tuple[Literal["comment"], _Comment],
+    tuple[Literal["pi"], _ProcessingInstruction],
+]
+
+class XMLPullParser(XMLParser):
+    def __init__(
+        self,
+        events: Optional[Iterable[_ParseEventType]] = ...,
+        *,
+        tag: Optional[_TagSelector] = ...,
+        base_url: Optional[_AnyStr] = ...,
+        encoding: Optional[_AnyStr] = ...,
+        attribute_defaults: bool = ...,
+        dtd_validation: bool = ...,
+        load_dtd: bool = ...,
+        no_network: bool = ...,
+        ns_clean: bool = ...,
+        recover: bool = ...,
+        schema: Optional[XMLSchema] = ...,
+        huge_tree: bool = ...,
+        remove_blank_text: bool = ...,
+        resolve_entities: bool = ...,
+        remove_comments: bool = ...,
+        remove_pis: bool = ...,
+        strip_cdata: bool = ...,
+        collect_ids: bool = ...,
+        target: Optional[ParserTarget] = ...,
+        compact: bool = ...,
+    ) -> None: ...
+    def read_events(self) -> Iterator[_ParseEvent]: ...
+
+class HTMLPullParser(HTMLParser):
+    def __init__(
+        self,
+        events: Optional[Iterable[_ParseEventType]] = ...,
+        *,
+        tag: Optional[_TagSelector] = ...,
+        base_url: Optional[_AnyStr] = ...,
+        encoding: Optional[_AnyStr] = ...,
+        collect_ids: bool = ...,
+        compact: bool = ...,
+        huge_tree: bool = ...,
+        no_network: bool = ...,
+        recover: bool = ...,
+        remove_blank_text: bool = ...,
+        remove_comments: bool = ...,
+        remove_pis: bool = ...,
+        schema: Optional[XMLSchema] = ...,
+        strip_cdata: bool = ...,
+        target: Optional[ParserTarget] = ...,
+    ) -> None: ...
+    def read_events(self) -> Iterator[_ParseEvent]: ...
