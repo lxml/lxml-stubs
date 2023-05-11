@@ -23,12 +23,20 @@ setup(
     description="Type annotations for the lxml package",
     long_description=long_description,
     long_description_content_type="text/markdown",
+
+    author="lxml dev team",
+    author_email="lxml-dev@lxml.de",
+    maintainer="lxml dev team",
+    maintainer_email="lxml-dev@lxml.de",
+    url="https://github.com/lxml/lxml-stubs",
+
     package_data={"lxml-stubs": ["*.pyi", "*/*.pyi"]},
     packages=["lxml-stubs"],
     tests_require=tests_require,
     extras_require={"test": tests_require},
+    zip_safe=False,
+
     classifiers=[
         "License :: OSI Approved :: Apache Software License",
     ],
-    zip_safe=False
 )
