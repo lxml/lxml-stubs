@@ -488,7 +488,7 @@ def SubElement(
 def ElementTree(
     element: _Element = ...,
     file: _FileSource = ...,
-    parser: _AnyParser = ...,
+    parser: Optional[_AnyParser] = ...,
 ) -> _ElementTree: ...
 def ProcessingInstruction(
     target: _AnyStr, text: _AnyStr = ...
@@ -513,7 +513,7 @@ def cleanup_namespaces(
 ) -> None: ...
 def parse(
     source: _FileSource,
-    parser: _AnyParser = ...,
+    parser: Optional[_AnyParser] = ...,
     base_url: _AnyStr = ...,
 ) -> Union[_ElementTree, Any]: ...
 @overload
