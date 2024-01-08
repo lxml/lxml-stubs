@@ -112,7 +112,7 @@
         elif event[0] == "end":
             reveal_type(event[1])  # N: Revealed type is "lxml.etree._Element"
         elif event[0] == "start-ns":
-            reveal_type(event[1])  # N: Revealed type is "Tuple[Union[builtins.str, builtins.bytes], Union[builtins.str, builtins.bytes]]"
+            reveal_type(event[1])  # N: Revealed type is "tuple[Union[builtins.str, builtins.bytes], Union[builtins.str, builtins.bytes]]"
         elif event[0] == "end-ns":
             reveal_type(event[1])  # N: Revealed type is "None"
         elif event[0] == "comment":
@@ -130,7 +130,7 @@
         elif event[0] == "end":
             reveal_type(event[1])  # N: Revealed type is "lxml.etree._Element"
         elif event[0] == "start-ns":
-            reveal_type(event[1])  # N: Revealed type is "Tuple[Union[builtins.str, builtins.bytes], Union[builtins.str, builtins.bytes]]"
+            reveal_type(event[1])  # N: Revealed type is "tuple[Union[builtins.str, builtins.bytes], Union[builtins.str, builtins.bytes]]"
         elif event[0] == "end-ns":
             reveal_type(event[1])  # N: Revealed type is "None"
         elif event[0] == "comment":
