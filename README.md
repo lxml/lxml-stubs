@@ -9,9 +9,8 @@ This repository contains external type annotations (see
 [PEP 484](https://www.python.org/dev/peps/pep-0484/)) for the
 [lxml](http://lxml.de/) package.
 
-Note that this package is community maintained.
-If you notice room for improvements, please consider sending a patch
-in the form of a change request.
+NOTE: It was superceded by the more complete and externally maintained
+[types-lxml](https://github.com/abelcheung/types-lxml) fork.
 
 
 ## Installation
