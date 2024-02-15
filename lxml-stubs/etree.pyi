@@ -577,7 +577,12 @@ def tostring(
     inclusive_ns_prefixes: Any = ...,
 ) -> _AnyStr: ...
 
-class _ErrorLog: ...
+class _LogEntry:
+    path: Optional[str]
+
+class _ErrorLog:
+    def __iter__(self) -> Iterator["_LogEntry"]: ...
+
 class Error(Exception): ...
 
 class LxmlError(Error):
