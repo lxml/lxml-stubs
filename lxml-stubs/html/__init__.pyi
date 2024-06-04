@@ -9,6 +9,8 @@ from typing import (
     MutableSet,
     Optional,
     Tuple,
+    Union,
+    overload,
 )
 
 from typing_extensions import Literal
@@ -16,7 +18,7 @@ from typing_extensions import Literal
 if TYPE_CHECKING:
     from ..etree import HTMLParser as _HTMLParser
     from ..etree import XMLParser as _XMLParser
-    from ..etree import _AnySmartStr, _AnyStr, _BaseParser, _Element
+    from ..etree import _AnySmartStr, _AnyStr, _BaseParser, _Element, _TagName
 
 _HANDLE_FALURES = Literal["ignore", "discard", None]
 
@@ -39,7 +41,7 @@ class HtmlMixin:
     body: Optional["_Element"]
     head: Optional["_Element"]
     label: Optional["_Element"]
-    def set(self, key: str, value: Any) -> None: ...
+    def set(self, key: _TagName, value: Any) -> None: ...
     def drop_tree(self) -> None: ...
     def drop_tag(self) -> None: ...
     def find_rel_links(self, rel: str) -> List["_Element"]: ...
@@ -63,6 +65,8 @@ class HtmlMixin:
     ) -> None: ...
     def __getattr__(self, name: str) -> Any: ...  # incomplete
 
+class HtmlElement(HtmlMixin, _Element): ...
+
 class HTMLParser(_HTMLParser):
     pass
 
@@ -71,15 +75,24 @@ class XHTMLParser(_XMLParser):
 
 def document_fromstring(
     html: "_AnyStr", parser: "_BaseParser" = ..., ensure_head_body: bool = ..., **kw
-) -> "_Element": ...
+) -> HtmlElement: ...
+@overload
 def fragments_fromstring(
     html: "_AnyStr",
-    no_leading_text: bool = ...,
+    no_leading_text: Literal[True],
     base_url: str = ...,
     parser: "_BaseParser" = ...,
     **kw
-) -> "_Element": ...
+) -> List[HtmlElement]: ...
+@overload
+def fragments_fromstring(
+    html: "_AnyStr",
+    no_leading_text: Literal[False] = ...,
+    base_url: str = ...,
+    parser: "_BaseParser" = ...,
+    **kw
+) -> List[Union[str, HtmlElement]]: ...
 def fromstring(
     html: "_AnyStr", base_url: str = ..., parser: "_BaseParser" = ..., **kw
-) -> "_Element": ...
+) -> HtmlElement: ...
 def __getattr__(name: str) -> Any: ...  # incomplete
