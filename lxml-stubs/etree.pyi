@@ -227,7 +227,7 @@ class _Element(Iterable["_Element"], Sized):
     text = ...  # type: Optional[str]
     tail = ...  # type: Optional[str]
     prefix = ...  # type: str
-    sourceline = ...  # Optional[int]
+    sourceline = ...  # type: Optional[int]
     @property
     def nsmap(self) -> Dict[Optional[str], str]: ...
     base = ...  # type: Optional[str]
