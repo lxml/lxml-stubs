@@ -1,4 +1,4 @@
-from typing import Any, Union
+from typing import Any, Optional, Union
 
 from lxml.etree import ElementBase, XMLParser
 
@@ -12,5 +12,5 @@ def fromstring(
     text: Union[bytes, str],
     parser: XMLParser = ...,
     *,
-    base_url: Union[bytes, str] = ...
+    base_url: Optional[Union[bytes, str]] = ...
 ) -> ObjectifiedElement: ...

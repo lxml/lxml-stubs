@@ -524,21 +524,21 @@ def cleanup_namespaces(
 def parse(
     source: _FileSource,
     parser: Optional[_AnyParser] = ...,
-    base_url: _AnyStr = ...,
+    base_url: Optional[_AnyStr] = ...,
 ) -> Union[_ElementTree, Any]: ...
 @overload
 def fromstring(
     text: _AnyStr,
     parser: None = ...,
     *,
-    base_url: _AnyStr = ...,
+    base_url: Optional[_AnyStr] = ...,
 ) -> _Element: ...
 @overload
 def fromstring(
     text: _AnyStr,
     parser: _AnyParser = ...,
     *,
-    base_url: _AnyStr = ...,
+    base_url: Optional[_AnyStr] = ...,
 ) -> Union[_Element, Any]: ...
 @overload
 def tostring(

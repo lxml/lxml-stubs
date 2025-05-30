@@ -49,7 +49,7 @@ class HtmlMixin:
     def cssselect(self, expr: str, translator: str = ...) -> List["_Element"]: ...
     def make_links_absolute(
         self,
-        base_url: str = ...,
+        base_url: Optional[str] = ...,
         resolve_base_href: bool = ...,
         handle_failures: _HANDLE_FALURES = ...,
     ) -> str: ...
@@ -59,7 +59,7 @@ class HtmlMixin:
         self,
         link_repl_func: Callable[[str], Optional[str]],
         resolve_base_href: bool = ...,
-        base_href: str = ...,
+        base_href: Optional[str] = ...,
     ) -> None: ...
     def __getattr__(self, name: str) -> Any: ...  # incomplete
 
@@ -75,11 +75,11 @@ def document_fromstring(
 def fragments_fromstring(
     html: "_AnyStr",
     no_leading_text: bool = ...,
-    base_url: str = ...,
+    base_url: Optional[str] = ...,
     parser: "_BaseParser" = ...,
     **kw
 ) -> "_Element": ...
 def fromstring(
-    html: "_AnyStr", base_url: str = ..., parser: "_BaseParser" = ..., **kw
+    html: "_AnyStr", base_url: Optional[str] = ..., parser: "_BaseParser" = ..., **kw
 ) -> "_Element": ...
 def __getattr__(name: str) -> Any: ...  # incomplete
