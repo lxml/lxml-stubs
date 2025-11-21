@@ -457,8 +457,8 @@ class Resolver:
 class XMLSchema(_Validator):
     def __init__(
         self,
-        etree: _ElementOrTree = ...,
-        file: _FileSource = ...,
+        etree: Optional[_ElementOrTree] = ...,
+        file: Optional[_FileSource] = ...,
     ) -> None: ...
     def __call__(self, etree: _ElementOrTree) -> bool: ...
 
