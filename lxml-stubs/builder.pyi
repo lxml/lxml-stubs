@@ -2,7 +2,7 @@ from typing import Any, Callable, Mapping, Optional, Protocol, TypeVar, Union
 
 from lxml.etree import _Element, _NSMapArg, _TagName, CDATA
 
-type _Child = Union[_Element, str, CDATA, Mapping[str, str]]
+type _Child = Union[_Element, str, CDATA, dict[str, str]]
 
 _T = TypeVar("_T")
 
@@ -17,7 +17,7 @@ class _TaggedElementMaker(Protocol):
 class ElementMaker:
     def __init__(
         self,
-        typemap: Optional[dict[type[_T], Callable[[_Element, _T], Any]]] = None,
+        typemap: Optional[Mapping[type[_T], Callable[[_Element, _T], Any]]] = None,
         namespace: Optional[str] = None,
         nsmap: Optional[_NSMapArg] = None,
         makeelement: Optional[_MakeElement] = None,
