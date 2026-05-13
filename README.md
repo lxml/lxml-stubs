@@ -4,13 +4,14 @@
 [![pypi](https://img.shields.io/pypi/v/lxml-stubs.svg)](https://pypi.python.org/pypi/lxml-stubs/)
 <!-- end-no-pypi -->
 
+**NOTE:** This package is **not maintained**.
+It was superseded by the more complete and externally maintained fork
+**[types-lxml](https://github.com/abelcheung/types-lxml)**.
+
 ## About
-This repository contains external type annotations (see
+This repository contained external type annotations (see
 [PEP 484](https://www.python.org/dev/peps/pep-0484/)) for the
 [lxml](http://lxml.de/) package.
-
-NOTE: It was superceded by the more complete and externally maintained
-[types-lxml](https://github.com/abelcheung/types-lxml) fork.
 
 
 ## Installation
